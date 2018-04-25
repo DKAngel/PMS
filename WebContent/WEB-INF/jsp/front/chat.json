@@ -1,0 +1,38 @@
+[
+    {
+        "chatContent": "大家好，我系渣渣灰", 
+        "chatId": 1, 
+        "chatTime": {
+            "date": 17,
+            "day": 2, 
+            "hours": 0, 
+            "minutes": 43, 
+            "month": 3, 
+            "seconds": 0, 
+            "time": 1523896980000, 
+            "timezoneOffset": -480, 
+            "year": 118
+        }, 
+        "ownersId": 1, 
+        "ownersName": "", 
+        "roomId": 0
+    }, 
+    {
+        "chatContent": "十三", 
+        "chatId": 13, 
+        "chatTime": {
+            "date": 17, 
+            "day": 2, 
+            "hours": 19, 
+            "minutes": 7, 
+            "month": 3, 
+            "seconds": 5, 
+            "time": 1523963225000, 
+            "timezoneOffset": -480, 
+            "year": 118
+        }, 
+        "ownersId": 1, 
+        "ownersName": "杨成", 
+        "roomId": 1
+    }
+]

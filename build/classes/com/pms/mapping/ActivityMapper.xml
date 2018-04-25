@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pms.dao.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.pms.pojo.Activity" >
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="activity_theme" property="activityTheme" jdbcType="VARCHAR" />
+    <result column="activity_content" property="activityContent" jdbcType="VARCHAR" />
+    <result column="activity_ptime" property="activityPtime" jdbcType="TIMESTAMP" />
+    <result column="activity_htime" property="activityHtime" jdbcType="TIMESTAMP" />
+    <result column="activity_state" property="activityState" jdbcType="INTEGER" />
+    <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
+    <result column="owners_name" property="ownersName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <insert id="insertByOwner" parameterType="com.pms.pojo.Activity" >
+    insert into activity (activity_theme, activity_content, 
+      activity_ptime, activity_htime, activity_state, 
+      owners_id, owners_name)
+    values (#{activityTheme,jdbcType=VARCHAR}, #{activityContent,jdbcType=VARCHAR}, 
+      #{activityPtime,jdbcType=TIMESTAMP}, #{activityHtime,jdbcType=TIMESTAMP}, #{activityState,jdbcType=INTEGER}, 
+      #{ownersId,jdbcType=INTEGER}, #{ownersName,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectAllActivityBy1" resultMap="BaseResultMap" >
+    select * from activity where activity_state = 1;
+  </select>
+  
+  <select id="selectAllActivityByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity
+    where owners_id = #{ownersId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    activity_id, activity_theme, activity_content, activity_ptime, activity_htime, activity_state, 
+    owners_id, owners_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pms.pojo.Activity" >
+    insert into activity (activity_id, activity_theme, activity_content, 
+      activity_ptime, activity_htime, activity_state, 
+      owners_id, owners_name)
+    values (#{activityId,jdbcType=INTEGER}, #{activityTheme,jdbcType=VARCHAR}, #{activityContent,jdbcType=VARCHAR}, 
+      #{activityPtime,jdbcType=TIMESTAMP}, #{activityHtime,jdbcType=TIMESTAMP}, #{activityState,jdbcType=INTEGER}, 
+      #{ownersId,jdbcType=INTEGER}, #{ownersName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pms.pojo.Activity" >
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="activityTheme != null" >
+        activity_theme,
+      </if>
+      <if test="activityContent != null" >
+        activity_content,
+      </if>
+      <if test="activityPtime != null" >
+        activity_ptime,
+      </if>
+      <if test="activityHtime != null" >
+        activity_htime,
+      </if>
+      <if test="activityState != null" >
+        activity_state,
+      </if>
+      <if test="ownersId != null" >
+        owners_id,
+      </if>
+      <if test="ownersName != null" >
+        owners_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="activityTheme != null" >
+        #{activityTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContent != null" >
+        #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPtime != null" >
+        #{activityPtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityHtime != null" >
+        #{activityHtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityState != null" >
+        #{activityState,jdbcType=INTEGER},
+      </if>
+      <if test="ownersId != null" >
+        #{ownersId,jdbcType=INTEGER},
+      </if>
+      <if test="ownersName != null" >
+        #{ownersName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pms.pojo.Activity" >
+    update activity
+    <set >
+      <if test="activityTheme != null" >
+        activity_theme = #{activityTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContent != null" >
+        activity_content = #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPtime != null" >
+        activity_ptime = #{activityPtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityHtime != null" >
+        activity_htime = #{activityHtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityState != null" >
+        activity_state = #{activityState,jdbcType=INTEGER},
+      </if>
+      <if test="ownersId != null" >
+        owners_id = #{ownersId,jdbcType=INTEGER},
+      </if>
+      <if test="ownersName != null" >
+        owners_name = #{ownersName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pms.pojo.Activity" >
+    update activity
+    set activity_theme = #{activityTheme,jdbcType=VARCHAR},
+      activity_content = #{activityContent,jdbcType=VARCHAR},
+      activity_ptime = #{activityPtime,jdbcType=TIMESTAMP},
+      activity_htime = #{activityHtime,jdbcType=TIMESTAMP},
+      activity_state = #{activityState,jdbcType=INTEGER},
+      owners_id = #{ownersId,jdbcType=INTEGER},
+      owners_name = #{ownersName,jdbcType=VARCHAR}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+</mapper>

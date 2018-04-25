@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pms.dao.JoinsMapper" >
+  <resultMap id="BaseResultMap" type="com.pms.pojo.Joins" >
+    <id column="joins_id" property="joinsId" jdbcType="INTEGER" />
+    <result column="owners_name" property="ownersName" jdbcType="VARCHAR" />
+    <result column="owners_phone" property="ownersPhone" jdbcType="VARCHAR" />
+    <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <insert id="insertByOwner" parameterType="com.pms.pojo.Joins" >
+    insert into joins (owners_name, owners_phone, owners_id, room_id, activity_id)
+    values (#{ownersName,jdbcType=VARCHAR}, #{ownersPhone,jdbcType=VARCHAR}, 
+      		#{ownersId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, 
+      		#{activityId,jdbcType=INTEGER} )
+  </insert>
+  
+  <select id="selectByActivityId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from joins
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByActivityIdAndOwnerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from joins
+    where activity_id = #{activityId,jdbcType=INTEGER} 
+    and owners_id = #{ownersId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    joins_id, owners_name, owners_phone, owners_id, room_id, activity_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from joins
+    where joins_id = #{joinsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from joins
+    where joins_id = #{joinsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pms.pojo.Joins" >
+    insert into joins (joins_id, owners_name, owners_phone, 
+      owners_id, room_id, activity_id
+      )
+    values (#{joinsId,jdbcType=INTEGER}, #{ownersName,jdbcType=VARCHAR}, #{ownersPhone,jdbcType=VARCHAR}, 
+      #{ownersId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pms.pojo.Joins" >
+    insert into joins
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="joinsId != null" >
+        joins_id,
+      </if>
+      <if test="ownersName != null" >
+        owners_name,
+      </if>
+      <if test="ownersPhone != null" >
+        owners_phone,
+      </if>
+      <if test="ownersId != null" >
+        owners_id,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="joinsId != null" >
+        #{joinsId,jdbcType=INTEGER},
+      </if>
+      <if test="ownersName != null" >
+        #{ownersName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownersPhone != null" >
+        #{ownersPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownersId != null" >
+        #{ownersId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pms.pojo.Joins" >
+    update joins
+    <set >
+      <if test="ownersName != null" >
+        owners_name = #{ownersName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownersPhone != null" >
+        owners_phone = #{ownersPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownersId != null" >
+        owners_id = #{ownersId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where joins_id = #{joinsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pms.pojo.Joins" >
+    update joins
+    set owners_name = #{ownersName,jdbcType=VARCHAR},
+      owners_phone = #{ownersPhone,jdbcType=VARCHAR},
+      owners_id = #{ownersId,jdbcType=INTEGER},
+      room_id = #{roomId,jdbcType=INTEGER},
+      activity_id = #{activityId,jdbcType=INTEGER}
+    where joins_id = #{joinsId,jdbcType=INTEGER}
+  </update>
+</mapper>

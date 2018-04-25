@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pms.dao.EmailCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.pms.pojo.EmailCode" >
+    <id column="code_id" property="codeId" jdbcType="INTEGER" />
+    <result column="owners_email" property="ownersEmail" jdbcType="VARCHAR" />
+    <result column="code_num" property="codeNum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from emailcode where owners_email = #{email,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertByNoId" parameterType="com.pms.pojo.EmailCode" >
+    insert into emailcode (owners_email, code_num)
+    values (#{ownersEmail,jdbcType=VARCHAR}, #{codeNum,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByEmail" parameterType="java.lang.String" >
+    update emailcode set code_num = #{codeNum,jdbcType=VARCHAR}
+    where owners_email = #{codeEmail,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <sql id="Base_Column_List" >
+    code_id, owners_email, code_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emailcode
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emailcode
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pms.pojo.EmailCode" >
+    insert into emailcode (code_id, owners_email, code_num
+      )
+    values (#{codeId,jdbcType=INTEGER}, #{ownersEmail,jdbcType=VARCHAR}, #{codeNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pms.pojo.EmailCode" >
+    insert into emailcode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codeId != null" >
+        code_id,
+      </if>
+      <if test="ownersEmail != null" >
+        owners_email,
+      </if>
+      <if test="codeNum != null" >
+        code_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codeId != null" >
+        #{codeId,jdbcType=INTEGER},
+      </if>
+      <if test="ownersEmail != null" >
+        #{ownersEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="codeNum != null" >
+        #{codeNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pms.pojo.EmailCode" >
+    update emailcode
+    <set >
+      <if test="ownersEmail != null" >
+        owners_email = #{ownersEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="codeNum != null" >
+        code_num = #{codeNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pms.pojo.EmailCode" >
+    update emailcode
+    set owners_email = #{ownersEmail,jdbcType=VARCHAR},
+      code_num = #{codeNum,jdbcType=VARCHAR}
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </update>
+</mapper>
