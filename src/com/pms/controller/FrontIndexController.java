@@ -19,6 +19,7 @@ import com.pms.pojo.Complain;
 import com.pms.pojo.Notice;
 import com.pms.pojo.NumOfOwner;
 import com.pms.pojo.Owner;
+import com.pms.pojo.Pay;
 import com.pms.pojo.Room;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
@@ -26,6 +27,7 @@ import com.pms.service.ActivityService;
 import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
 import com.pms.service.NoticeService;
+import com.pms.service.PayService;
 import com.pms.service.RoomService;
 import com.pms.service.SuggestService;
 import com.pms.service.UpkeepService;
@@ -56,6 +58,9 @@ public class FrontIndexController {
 	
 	@Resource(name = "roomService")
 	RoomService roomService;
+	
+	@Resource(name = "payService")
+	PayService payService;
 	
 	/**
 	 * 展示所有公告
@@ -350,9 +355,19 @@ public class FrontIndexController {
 		return mView;
 	}
 	
+	/**
+	 * 缴费记录
+	 * @param session
+	 * @return recordOfPay.jsp
+	 */
 	@RequestMapping("/recordOfPay")
-	public String recordOfPay(){
-		return "/front/recordOfPay";
+	public ModelAndView recordOfPay(HttpSession session){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/front/recordOfPay");
+		Owner owner = (Owner) session.getAttribute("owner");
+		List<Pay> payList = payService.getAllByOwnerId(owner.getOwnersId());
+		mView.addObject("payList", payList);
+		return mView;
 	}
 	
 	/**

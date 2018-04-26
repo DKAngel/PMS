@@ -1,5 +1,7 @@
 package com.pms.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.pms.pojo.Pay;
@@ -22,4 +24,6 @@ public interface PayMapper {
     int insertByOwner(Pay record);
     
     Pay selectMaxPayByOwner(Integer ownerId);
+    
+    List<Pay> selectAllByOwnerId(Integer ownerId);
 }

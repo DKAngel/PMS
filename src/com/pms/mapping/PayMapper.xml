@@ -38,6 +38,13 @@
   	select max(pay_id) from pay where owners_id = #{ownersId,jdbcType=INTEGER});
   </select>  
   
+  <select id="selectAllByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay
+    where owners_id = #{ownersId,jdbcType=INTEGER}
+  </select>
+  
   
   <sql id="Base_Column_List" >
     pay_id, pay_time, pay_price, owners_id
