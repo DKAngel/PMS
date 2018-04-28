@@ -28,6 +28,14 @@
     where owners_id = #{ownerId,jdbcType=INTEGER}
   </select>
   
+  <update id="updateByAdmin" parameterType="com.pms.pojo.Suggest" >
+    update suggest set 
+      	suggest_handle_time = #{suggestHandleTime,jdbcType=TIMESTAMP},
+    	suggest_handle_result = #{suggestHandleResult,jdbcType=VARCHAR},
+      	admin_id = #{adminId,jdbcType=INTEGER}
+    where suggest_id = #{suggestId,jdbcType=INTEGER}
+  </update>
+  
   
   <sql id="Base_Column_List" >
     suggest_id, suggest_content, suggest_time, suggest_handle_time, suggest_handle_result, 

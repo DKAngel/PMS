@@ -9,13 +9,13 @@
 <script src="/pms/static/js/jquery.js"></script>
 <script src="/pms/static/js/cloud.js" type="text/javascript"></script>
 
-<script >
+<script>
 	$(function(){
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-	$(window).resize(function(){  
+	$(window).resize(function(){
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-    })  
-});  
+    })
+});
 </script> 
 
 </head>
@@ -49,7 +49,6 @@
                         <button type="submit" class="loginbtn" >登录</button>
                         
                         <label><input id="remember" type="checkbox" value="" />记住密码</label>
-                        <label><a href="#">忘记密码？</a></label>
                     </li>
                 </form>
             </ul>  

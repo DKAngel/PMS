@@ -27,7 +27,7 @@
     <ul class="placeul">
     <li><a href="${pageContext.request.contextPath}/adminMain/index">首页</a></li>
     <li><a href="${pageContext.request.contextPath}/adminMain/notice">公告管理</a></li>
-    <li><a href="${pageContext.request.contextPath}/adminMain/notice" class="selected">发布公告</a></li>
+    <li><a href="${pageContext.request.contextPath}/adminMain/notice">发布公告</a></li>
     </ul>
     </div>
     

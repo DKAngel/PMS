@@ -10,4 +10,5 @@ public interface UpkeepService {
 	public Upkeep getByUpkeepId(Integer id);
 	public int deleteByUpkeepId(Integer id);
 	public List<Upkeep> getAllUpkeepByOwner(Integer ownerId);
+	public int updateByAdmin(Upkeep record);
 }

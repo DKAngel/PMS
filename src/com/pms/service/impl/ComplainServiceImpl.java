@@ -35,4 +35,8 @@ public class ComplainServiceImpl implements ComplainService{
 	public List<Complain> getAllComplainByOwner(Integer ownerId){
 		return complainMapper.selectAllComplainByOwner(ownerId);
 	}
+	
+	public int updateByAdmin(Complain record){
+		return complainMapper.updateByAdmin(record);
+	}
 }

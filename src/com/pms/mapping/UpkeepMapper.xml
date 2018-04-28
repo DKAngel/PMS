@@ -31,6 +31,15 @@
     where owners_id = #{ownerId,jdbcType=INTEGER}
   </select>
   
+  <update id="updateByAdmin" parameterType="com.pms.pojo.Upkeep" >
+    update upkeep set 
+      upkeep_handle_time = #{upkeepHandleTime,jdbcType=TIMESTAMP},
+      upkeep_process = #{upkeepProcess,jdbcType=VARCHAR},
+      upkeep_result = #{upkeepResult,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER}
+    where upkeep_id = #{upkeepId,jdbcType=INTEGER}
+  </update>
+  
   
   <sql id="Base_Column_List" >
     upkeep_id, upkeep_type, upkeep_content, upkeep_time, upkeep_handle_time, upkeep_process, 

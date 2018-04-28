@@ -34,4 +34,8 @@ public class UpkeepServiceImpl implements UpkeepService{
 	public List<Upkeep> getAllUpkeepByOwner(Integer ownerId){
 		return upkeepMapper.selectAllUpkeepByOwner(ownerId);
 	}
+	
+	public int updateByAdmin(Upkeep record){
+		return upkeepMapper.updateByAdmin(record);
+	}
 }

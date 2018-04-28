@@ -33,4 +33,7 @@ public class OwnerServiceImpl implements OwnerService{
 		return ownerMapper.updateAccountByEmail(newEmail, password, oldEmail);
 	}
 	
+	public Owner getByOwnerId(Integer ownerId){
+		return ownerMapper.selectByPrimaryKey(ownerId);
+	}
 }

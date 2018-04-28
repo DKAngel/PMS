@@ -26,4 +26,6 @@ public interface SuggestMapper {
     List<Suggest> selectAllSuggest();
     
     List<Suggest> selectAllSuggestByOwner(Integer ownerId);
+    
+    int updateByAdmin(Suggest record);
 }

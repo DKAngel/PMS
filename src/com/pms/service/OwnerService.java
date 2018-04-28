@@ -8,4 +8,5 @@ public interface OwnerService {
 	public int updatePasswordByEmail(String password, String email);
 	public int updateInfoByEmail(String password, String sex, String phone, String email);
 	public int updateAccountByEmail(String newEmail, String password, String oldEmail);
+	public Owner getByOwnerId(Integer id); 
 }

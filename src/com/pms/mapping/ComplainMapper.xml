@@ -29,6 +29,13 @@
     where owners_id = #{ownerId,jdbcType=INTEGER}
   </select>
   
+  <update id="updateByAdmin" parameterType="com.pms.pojo.Complain" >
+    update complain set complain_handle_time = #{complainHandleTime,jdbcType=TIMESTAMP},
+				        complain_handle_result = #{complainHandleResult,jdbcType=VARCHAR},
+				        admin_id = #{adminId,jdbcType=INTEGER}
+    where complain_id = #{complainId,jdbcType=INTEGER}
+  </update>
+  
   
   <sql id="Base_Column_List" >
     complain_id, complain_type, complain_content, complain_time, complain_handle_time, 

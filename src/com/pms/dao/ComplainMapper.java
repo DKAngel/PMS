@@ -26,4 +26,6 @@ public interface ComplainMapper {
     List<Complain> selectAllComplain();
     
     List<Complain> selectAllComplainByOwner(Integer ownerId);
+    
+    int updateByAdmin(Complain record);
 }

@@ -26,4 +26,6 @@ public interface UpkeepMapper {
     List<Upkeep> selectAllUpkeep();
     
     List<Upkeep> selectAllUpkeepByOwner(Integer ownerId);
+    
+    int updateByAdmin(Upkeep record);
 }

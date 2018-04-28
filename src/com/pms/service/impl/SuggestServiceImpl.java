@@ -34,4 +34,8 @@ public class SuggestServiceImpl implements SuggestService {
 	public List<Suggest> getAllSuggestByOwner(Integer ownerId){
 		return suggestMapper.selectAllSuggestByOwner(ownerId);
 	}
+	
+	public int updateByAdmin(Suggest record){
+		return suggestMapper.updateByAdmin(record);
+	}
 }
