@@ -18,6 +18,20 @@
     where activity_id = #{activityId,jdbcType=INTEGER}
   </select>
   
+  <insert id="insertByAdmin" parameterType="com.pms.pojo.Verify" >
+    insert into verify (verify_content, verify_result, 
+      verify_time, activity_id, admin_id
+      )
+    values (#{verifyContent,jdbcType=VARCHAR}, #{verifyResult,jdbcType=VARCHAR}, 
+      #{verifyTime,jdbcType=TIMESTAMP}, #{activityId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <delete id="deleteByActivityId" parameterType="java.lang.Integer" >
+    delete from verify
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  
   
   <sql id="Base_Column_List" >
     verify_id, verify_content, verify_result, verify_time, activity_id, admin_id

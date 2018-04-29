@@ -26,4 +26,10 @@ public interface ActivityMapper {
     List<Activity> selectAllActivityBy1();
     
     List<Activity> selectAllActivityByOwnerId(Integer ownerId);
+    
+    List<Activity> selectAllActivityBy0();
+    
+    List<Activity> selectAllActivity();
+    
+    int updateStateById(Activity record);
 }

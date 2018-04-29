@@ -322,9 +322,10 @@
                 </div>
             </div>
             <div class="panel-heading">
+            	<h4 style="text-align:left">审核人：${admin.adminName}</h4>
             	<h4 style="text-align:left">审核时间：<fmt:formatDate value = "${verify.verifyTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h4>
            		<h4 style="text-align:left">审核内容：${verify.verifyContent}</h4>
-              	<h4>审核结果：${ verify.verifyResult }</h4>
+              	<h4>是否通过：${ verify.verifyResult }</h4>
             </div>
             
         </div>

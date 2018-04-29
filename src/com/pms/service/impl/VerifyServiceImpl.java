@@ -16,4 +16,12 @@ public class VerifyServiceImpl implements VerifyService{
 	public Verify getByActivityId(Integer activityId){
 		return verifyMapper.selectByActivityId(activityId);
 	}
+	
+	public int insertByAdmin(Verify record){
+		return verifyMapper.insertByAdmin(record);
+	}
+	
+	public int deleteByActivityId(Integer activityId){
+		return verifyMapper.deleteByActivityId(activityId);
+	}
 }

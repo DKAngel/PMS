@@ -1,6 +1,7 @@
 package com.pms.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,18 +12,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pms.pojo.Activity;
 import com.pms.pojo.Admin;
 import com.pms.pojo.Chat;
 import com.pms.pojo.Complain;
+import com.pms.pojo.Joins;
 import com.pms.pojo.Owner;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
+import com.pms.pojo.Verify;
+import com.pms.service.ActivityService;
 import com.pms.service.AdminService;
 import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
+import com.pms.service.JoinsService;
 import com.pms.service.OwnerService;
 import com.pms.service.SuggestService;
 import com.pms.service.UpkeepService;
+import com.pms.service.VerifyService;
 import com.pms.utils.CleanStyle;
 import com.pms.utils.GetNowTime;
 
@@ -47,6 +54,15 @@ public class AdminHandleController {
 	
 	@Resource(name = "chatService")
 	ChatService chatService;
+	
+	@Resource(name = "activityService")
+	ActivityService activityService;
+	
+	@Resource(name = "verifyService")
+	VerifyService verifyService;
+	
+	@Resource(name = "joinsService")
+	JoinsService joinsService;
 	
 	/**
 	 * 删除投诉记录
@@ -320,4 +336,117 @@ public class AdminHandleController {
 		
 		return mView;
 	}
+	
+	/**
+	 * 活动审核
+	 * @param activityId
+	 * @return
+	 */
+	@RequestMapping("/activityVerify/{activityId}")
+	public ModelAndView activityVerify(@PathVariable String activityId){
+		ModelAndView mView = new ModelAndView();
+		
+		Activity activity = activityService.getByActivityId(Integer.valueOf(activityId));
+		mView.addObject("activity", activity);
+		
+		Owner owner = ownerService.getByOwnerId(activity.getOwnersId());
+		mView.addObject("activityOwner", owner);
+		
+		mView.setViewName("/admin/activityVerifyDetail");  
+		
+		return mView;
+	}
+	
+	/**
+	 * 更新审核活动记录
+	 * @param activityId
+	 * @param session
+	 * @param request
+	 * @return activityVerify.jsp
+	 */
+	@RequestMapping("/updateActivity/{activityId}")
+	public String updateActivity(@PathVariable String activityId, HttpSession session, HttpServletRequest request){
+		Admin admin = (Admin) session.getAttribute("user");
+		int adminId = admin.getAdminId();
+		
+		GetNowTime getNowTime = new GetNowTime();
+		Date nowTime = getNowTime.getNowTime();
+		
+		CleanStyle cleanStyle = new CleanStyle();
+		String verifyContent = cleanStyle.cleanStyle(request.getParameter("verifyContent"));
+		String verifyResult = request.getParameter("verifyResult");
+		
+		int state;
+		if(verifyResult.equals("是")){
+			state = 1;
+		}else{
+			state = 2;
+		}
+		
+		Activity activity = new Activity();
+		activity.setActivityId(Integer.valueOf(activityId));
+		activity.setActivityState(state);
+		
+		activityService.updateStateById(activity);
+		
+		Verify verify = new Verify();
+		verify.setActivityId(Integer.valueOf(activityId));
+		verify.setVerifyContent(verifyContent);
+		verify.setVerifyResult(verifyResult);
+		verify.setVerifyTime(nowTime);
+		verify.setAdminId(adminId);
+		
+		int flag = verifyService.insertByAdmin(verify);
+		
+		if(flag > 0){
+			System.out.println("审核成功");
+		}
+		return "redirect:/adminMain/activityVerify";
+	}
+	
+	/**
+	 * 删除活动记录
+	 * @param activityId
+	 * @return activity Controller
+	 */
+	@RequestMapping("/deleteActivity/{activityId}")
+	public String deleteActivity(@PathVariable String activityId){
+		
+		joinsService.deleteByActivityId(Integer.valueOf(activityId));
+		
+		verifyService.deleteByActivityId(Integer.valueOf(activityId));
+		
+		int deleteActivity = activityService.deleteByPrimaryKey(Integer.valueOf(activityId));
+		
+		if(deleteActivity == 1){
+			System.out.println("删除成功！");
+			return "redirect:/adminMain/activity";
+		}else{
+			return null;
+		}
+	}
+	
+	@RequestMapping("/handleActivity/{activityId}")
+	public ModelAndView handleActivity(@PathVariable String activityId){
+		ModelAndView mView = new ModelAndView();
+		
+		Activity activity = activityService.getByActivityId(Integer.valueOf(activityId));
+		mView.addObject("activity", activity);
+		
+		List<Joins> joinList = joinsService.getByActivityId(Integer.valueOf(activityId));
+		mView.addObject("joinList", joinList);
+		
+		Verify verify = verifyService.getByActivityId(Integer.valueOf(activityId));
+		mView.addObject("verify", verify);
+		
+		if(verify != null){
+			Admin admin = adminService.getByAdminId(verify.getAdminId());
+			mView.addObject("admin", admin);
+		}
+		
+		mView.setViewName("/admin/handleActivity");  
+		
+		return mView;
+	}
+	
 }

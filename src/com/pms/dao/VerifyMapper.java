@@ -20,4 +20,8 @@ public interface VerifyMapper {
     
     //
     Verify selectByActivityId(Integer activityId);
+    
+    int insertByAdmin(Verify record);
+    
+    int deleteByActivityId(Integer activityId);
 }

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pms.pojo.Activity;
 import com.pms.pojo.Chat;
 import com.pms.pojo.Complain;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
+import com.pms.service.ActivityService;
 import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
 import com.pms.service.NoticeService;
@@ -36,6 +38,9 @@ public class AdminMainController {
 	
 	@Resource(name = "chatService")
 	ChatService chatService;
+	
+	@Resource(name = "activityService")
+	ActivityService activityService;
 	
 	@RequestMapping(value = "main")
 	public String main(){
@@ -159,6 +164,10 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	/**
+	 * 聊天管理
+	 * @return chat.jsp
+	 */
 	@RequestMapping(value = "chat")
 	public ModelAndView chat(){
 		ModelAndView mView = new ModelAndView();
@@ -178,4 +187,49 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	/**
+	 * 待审核活动查询
+	 * @return activityVerify.jsp
+	 */
+	@RequestMapping(value = "activityVerify")
+	public ModelAndView activityVerify(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/activityVerify");
+		
+		List<Activity> activityList = activityService.getAllActivityBy0();
+		
+		for (Activity activity : activityList) {
+			String str = activity.getActivityContent();
+			if(str.length() > 10){
+				activity.setActivityContent(str.substring(0,9)+"......");
+			}
+		}
+		
+		mView.addObject("activityList", activityList);
+		
+		return mView;
+	}
+	
+	/**
+	 * 所有活动记录查询
+	 * @return activity.jsp
+	 */
+	@RequestMapping(value = "activity")
+	public ModelAndView activity(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/activity");
+		
+		List<Activity> activityList = activityService.getAllActivity();
+		
+		for (Activity activity : activityList) {
+			String str = activity.getActivityContent();
+			if(str.length() > 10){
+				activity.setActivityContent(str.substring(0,9)+"......");
+			}
+		}
+		
+		mView.addObject("activityList", activityList);
+		
+		return mView;
+	}
 }

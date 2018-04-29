@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pms.pojo.Activity;
+import com.pms.pojo.Admin;
 import com.pms.pojo.Joins;
 import com.pms.pojo.Owner;
 import com.pms.pojo.Verify;
 import com.pms.service.ActivityService;
+import com.pms.service.AdminService;
 import com.pms.service.JoinsService;
 import com.pms.service.VerifyService;
 import com.pms.utils.CleanStyle;
@@ -37,6 +39,9 @@ public class FrontActivityController {
 	
 	@Resource(name = "verifyService")
 	VerifyService verifyService;
+	
+	@Resource(name = "adminService")
+	AdminService adminService;
 	
 	/**
 	 * 发布活动
@@ -102,7 +107,7 @@ public class FrontActivityController {
 	}
 	
 	/**
-	 * 活动详情,包括活动内容和活动参加者信息
+	 * 发起活动，活动详情，包括活动内容和活动参加者信息
 	 * @param activityId
 	 * @return activityDetail.jsp
 	 */
@@ -164,6 +169,10 @@ public class FrontActivityController {
 	@RequestMapping("/activityDelete/{activityId}")
 	public String activityDelete(@PathVariable String activityId) {
 		
+		joinsService.deleteByActivityId(Integer.valueOf(activityId));
+		
+		verifyService.deleteByActivityId(Integer.valueOf(activityId));
+		
 		int deleteActivity = activityService.deleteByPrimaryKey(Integer.valueOf(activityId));
 		
 		if(deleteActivity == 1){
@@ -175,7 +184,7 @@ public class FrontActivityController {
 	}
 	
 	/**
-	 * 活动记录详细界面(包括审核内容)
+	 * 个人中心，活动记录详细界面(包括审核内容)
 	 * @param activityId
 	 * @return activityVerify.jsp
 	 */
@@ -192,6 +201,11 @@ public class FrontActivityController {
 		
 		Verify verify = verifyService.getByActivityId(Integer.valueOf(activityId));
 		mView.addObject("verify", verify);
+		
+		if(verify != null){
+			Admin admin = adminService.getByAdminId(verify.getAdminId());
+			mView.addObject("admin", admin);
+		}
 		
         return mView;
 	}

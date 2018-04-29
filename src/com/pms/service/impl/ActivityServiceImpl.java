@@ -35,5 +35,17 @@ public class ActivityServiceImpl implements ActivityService {
 	public int deleteByPrimaryKey(Integer activityId){
 		return activityMapper.deleteByPrimaryKey(activityId);
 	}
+	
+	public List<Activity> getAllActivityBy0(){
+		return activityMapper.selectAllActivityBy0();
+	}
+	
+	public List<Activity> getAllActivity(){
+		return activityMapper.selectAllActivity();
+	}
+	
+	public int updateStateById(Activity record){
+		return activityMapper.updateStateById(record);
+	}
 }
 

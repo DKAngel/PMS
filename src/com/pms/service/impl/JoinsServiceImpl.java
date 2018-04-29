@@ -26,4 +26,8 @@ public class JoinsServiceImpl implements JoinsService{
     public Joins getByActivityIdAndOwnerId(Integer activityId, Integer ownersId){
     	return joinsMapper.selectByActivityIdAndOwnerId(activityId, ownersId);
     }
+    
+    public int deleteByActivityId(Integer activityId){
+    	return joinsMapper.deleteByActivityId(activityId);
+    }
 }

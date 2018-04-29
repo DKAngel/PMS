@@ -10,4 +10,7 @@ public interface ActivityService {
 	public Activity getByActivityId(Integer id);
 	public List<Activity> getAllActivityByOwnerId(Integer ownerId);
 	public int deleteByPrimaryKey(Integer activityId);
+	public List<Activity> getAllActivityBy0();
+	public List<Activity> getAllActivity();
+	public int updateStateById(Activity record);
 }

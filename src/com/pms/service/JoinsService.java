@@ -10,4 +10,6 @@ public interface JoinsService {
     public List<Joins> getByActivityId(Integer id);
     
     public Joins getByActivityIdAndOwnerId(Integer activityId, Integer ownersId);
+    
+    public int deleteByActivityId(Integer activityId);
 }

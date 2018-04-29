@@ -252,7 +252,7 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>发布时间</th>
+                                        <th>提交时间</th>
                                         <th>主题</th>
                                         <th>举行时间</th>
                                         <th>状态</th>
@@ -270,7 +270,15 @@
 							                        </td>
 							                        <td><fmt:formatDate value = "${activity.activityHtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							                        <td>
-							                        	${ activity.activityState }
+								                        <c:if test="${activity.activityState == 0 }">
+								                        	待审核
+								                        </c:if>
+								                        <c:if test="${activity.activityState == 1 }">
+								                        	通过
+								                        </c:if>
+								                        <c:if test="${activity.activityState == 2 }">
+								                        	不通过
+								                        </c:if>
 							                        </td>
 							                        <td>
 							                        	<a href="${pageContext.request.contextPath}/frontActivity/activityVerify/${activity.activityId}"  title = "查看活动详情"> 
