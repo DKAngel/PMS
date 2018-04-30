@@ -27,7 +27,7 @@
     <ul class="placeul">
     <li><a href="${pageContext.request.contextPath}/adminMain/index">首页</a></li>
     <li>活动管理</li>
-    <li><a href="${pageContext.request.contextPath}/adminMain/chat">活动查询</a></li>
+    <li><a href="${pageContext.request.contextPath}/adminMain/activity">活动查询</a></li>
     <li>活动详情</li>
     </ul>
     </div>

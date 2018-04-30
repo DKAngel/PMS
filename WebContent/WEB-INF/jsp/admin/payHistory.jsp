@@ -26,8 +26,8 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="${pageContext.request.contextPath}/adminMain/index">首页</a></li>
-    <li>活动管理</li>
-    <li><a href="${pageContext.request.contextPath}/adminMain/activity">活动查询</a></li>
+    <li>缴费管理</li>
+    <li><a href="${pageContext.request.contextPath}/adminMain/payHistory">缴费记录查询</a></li>
     </ul>
     </div>
     
@@ -40,49 +40,37 @@
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
-                            <th>提交时间</th>
-                            <th>活动主题</th>
-                            <th>活动内容</th>
-                            <th>状态</th>
-                            <th>发起人</th>
+                            <th>缴费时间</th>
+                            <th>缴费金额</th>
+                            <th>房间号</th>
+                            <th>房间大小</th>
+                            <th>缴费人</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
 				    <c:choose>
-				        <c:when test="${not empty activityList}">
-				            <c:forEach items="${activityList}" var="activity">  
+				        <c:when test="${not empty payList}">
+				            <c:forEach items="${payList}" var="pay">  
 				                <tr class="even gradeX">
-				                	<td><fmt:formatDate value = "${ activity.activityPtime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-				                    <td>${ activity.activityTheme }</td>
-				                    <td>${ activity.activityContent }</td>
+				                	<td><fmt:formatDate value = "${ pay.payTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+				                    <td>${ pay.payPrice }</td>
+				                    <td>${ pay.room.roomId}</td>
+				                    <td>${ pay.room.roomSize}</td>
+				                    <td>${ pay.owner.ownersName }</td>
 				                    <td>
-				                    	<c:if test="${activity.activityState == 0 }">
-				                        	待审核
-				                        </c:if>
-				                        <c:if test="${activity.activityState == 1 }">
-				                        	通过
-				                        </c:if>
-				                        <c:if test="${activity.activityState == 2 }">
-				                        	不通过
-				                        </c:if>
-				                    </td>
-				                    <td>${ activity.ownersName }</td>
-				                    <td>
-				                   	<a href="${pageContext.request.contextPath}/adminHandle/handleActivity/${activity.activityId}" >
-				                   		查看 /</a>
-				                   	<a href="${pageContext.request.contextPath}/adminHandle/deleteActivity/${activity.activityId}" >
-										删除</a>
+				                   	<a href="${pageContext.request.contextPath}/adminHandle/handlePay/${pay.payId}" >
+				                   		查看</a>
 				                    </td>
 								</tr>
 				           </c:forEach>
 				       </c:when>
 				       <c:otherwise>
 				          <tr>
-				              <td colspan="6">没有活动记录！</td>
+				              <td colspan="6">没有缴费记录！</td>
 				          </tr>
 				       </c:otherwise>
-				   </c:choose>  
+				   </c:choose>
                    </tbody>
                 </table>
             </div>

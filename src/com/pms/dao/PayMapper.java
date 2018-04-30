@@ -26,4 +26,10 @@ public interface PayMapper {
     Pay selectMaxPayByOwner(Integer ownerId);
     
     List<Pay> selectAllByOwnerId(Integer ownerId);
+    
+    List<Pay> selectAllPay();
+    
+    List<Pay> selectAllPayByRoom();
+    
+    Pay selectPayByPayId(Integer ownersId);
 }

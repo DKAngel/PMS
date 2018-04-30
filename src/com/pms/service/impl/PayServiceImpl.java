@@ -26,4 +26,16 @@ public class PayServiceImpl implements PayService {
 	public List<Pay> getAllByOwnerId(Integer ownerId){
 		return payMapper.selectAllByOwnerId(ownerId);
 	}
+	
+	public List<Pay> getAllPay(){
+		return payMapper.selectAllPay();
+	}
+	
+	public List<Pay> getAllPayByRoom(){
+		return payMapper.selectAllPayByRoom();
+	}
+	
+	public Pay getPayByPayId(Integer ownersId){
+		return payMapper.selectPayByPayId(ownersId);
+	}
 }

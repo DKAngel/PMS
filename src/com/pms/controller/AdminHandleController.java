@@ -18,6 +18,7 @@ import com.pms.pojo.Chat;
 import com.pms.pojo.Complain;
 import com.pms.pojo.Joins;
 import com.pms.pojo.Owner;
+import com.pms.pojo.Pay;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
 import com.pms.pojo.Verify;
@@ -27,6 +28,7 @@ import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
 import com.pms.service.JoinsService;
 import com.pms.service.OwnerService;
+import com.pms.service.PayService;
 import com.pms.service.SuggestService;
 import com.pms.service.UpkeepService;
 import com.pms.service.VerifyService;
@@ -63,6 +65,9 @@ public class AdminHandleController {
 	
 	@Resource(name = "joinsService")
 	JoinsService joinsService;
+	
+	@Resource(name = "payService")
+	PayService payService;
 	
 	/**
 	 * 删除投诉记录
@@ -426,6 +431,11 @@ public class AdminHandleController {
 		}
 	}
 	
+	/**
+	 * 活动详情
+	 * @param activityId
+	 * @return handleActivity
+	 */
 	@RequestMapping("/handleActivity/{activityId}")
 	public ModelAndView handleActivity(@PathVariable String activityId){
 		ModelAndView mView = new ModelAndView();
@@ -445,6 +455,24 @@ public class AdminHandleController {
 		}
 		
 		mView.setViewName("/admin/handleActivity");  
+		
+		return mView;
+	}
+	
+	/**
+	 * 缴费详情
+	 * @param payId
+	 * @return handlePay.jsp
+	 */
+	@RequestMapping("/handlePay/{payId}")
+	public ModelAndView handlePay(@PathVariable String payId){
+		ModelAndView mView = new ModelAndView();
+		
+		Pay pay = payService.getPayByPayId(Integer.valueOf(payId));
+		
+		mView.addObject("pay", pay);
+		
+		mView.setViewName("/admin/handlePay");  
 		
 		return mView;
 	}

@@ -13,11 +13,36 @@
     <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
     <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
     <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
+    
     <association property="room" javaType="com.pms.pojo.Room">
     	<id column="room_id" property="roomId" jdbcType="INTEGER" />
 	    <result column="room_size" property="roomSize" jdbcType="INTEGER" />
 	    <result column="room_pay" property="roomPay" jdbcType="VARCHAR" />
 	    <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
+    </association>
+  </resultMap>
+  
+  <resultMap id="ResultMap" type="com.pms.pojo.Pay" >
+    <id column="pay_id" property="payId" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+    <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
+    
+    <association property="room" javaType="com.pms.pojo.Room">
+    	<id column="room_id" property="roomId" jdbcType="INTEGER" />
+	    <result column="room_size" property="roomSize" jdbcType="INTEGER" />
+	    <result column="room_pay" property="roomPay" jdbcType="VARCHAR" />
+	    <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
+    </association>
+    
+    <association property="owner" javaType="com.pms.pojo.Owner">
+    	<id column="ownersId" property="ownersId" jdbcType="INTEGER" />
+	    <result column="owners_email" property="ownersEmail" jdbcType="VARCHAR" />
+	    <result column="owners_password" property="ownersPassword" jdbcType="VARCHAR" />
+	    <result column="owners_name" property="ownersName" jdbcType="VARCHAR" />
+	    <result column="owners_sex" property="ownersSex" jdbcType="VARCHAR" />
+	    <result column="owners_phone" property="ownersPhone" jdbcType="VARCHAR" />
+	    <result column="roomId" property="roomId" jdbcType="INTEGER" />
     </association>
   </resultMap>
   
@@ -36,13 +61,28 @@
   <select id = "selectMaxPayByOwner" resultMap = "BaseResultMap">
   	select * from pay where pay_id = (
   	select max(pay_id) from pay where owners_id = #{ownersId,jdbcType=INTEGER});
-  </select>  
+  </select>
   
   <select id="selectAllByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from pay
     where owners_id = #{ownersId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllPay" resultMap="BaseResultMap" >
+    select * from pay;
+  </select>
+  
+  <select id="selectAllPayByRoom" resultMap="ResultMap" >
+    select a.*, b.*, c.* from pay as a
+	left join room as b on ( b.room_owner = a.owners_id )
+	left join owners as c on ( c.owners_id = a.owners_id );
+  </select>
+  
+  <select id="selectPayByPayId" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    select pay.*, room.*, owners.* from pay ,room, owners where pay.pay_id = #{payId,jdbcType=INTEGER}
+	and pay.owners_id = room.room_owner and room.room_id = owners.room_id;
   </select>
   
   

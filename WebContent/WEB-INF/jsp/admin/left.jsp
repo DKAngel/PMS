@@ -85,10 +85,21 @@ $(function(){
     <span><img src="/pms/static/images/leftico01.png" /></span>缴费管理
     </div>
     	<ul class="menuson">
-        <li><cite></cite><a href="index.html" target="rightFrame">首页模版</a><i></i></li>
+    	<li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/payCurrentSituation" target="rightFrame">当前缴费情况</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/payHistory" target="rightFrame">缴费记录查询</a><i></i></li>
         </ul>    
     </dd>
-        
+    
+    <dd>
+    <div class="title">
+    <span><img src="/pms/static/images/leftico01.png" /></span>业主管理
+    </div>
+    	<ul class="menuson">
+        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/activityVerify" target="rightFrame">活动审核</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/activity" target="rightFrame">活动查询</a><i></i></li>
+        </ul>
+    </dd>
+    
     <dd>
     <div class="title">
     <span><img src="/pms/static/images/leftico02.png" /></span>统计分析

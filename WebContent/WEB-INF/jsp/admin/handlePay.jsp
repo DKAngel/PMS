@@ -26,35 +26,21 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="${pageContext.request.contextPath}/adminMain/index">首页</a></li>
-    <li>活动管理</li>
-    <li><a href="${pageContext.request.contextPath}/adminMain/activityVerify">待审核活动查询</a></li>
-    <li>审核活动</li>
+    <li>缴费管理</li>
+    <li><a href="${pageContext.request.contextPath}/adminMain/payHistory">缴费记录查询</a></li>
+    <li>缴费详情</li>
     </ul>
     </div>
 
 	<div class="panel ">
         <div class="panel-heading">
-        	<h4>发起人：${ activityOwner.ownersName }</h4>
-        	<h4>电话：${ activityOwner.ownersPhone }</h4>
-        	<h4>房间：${ activityOwner.roomId }</h4>
-           	<h4>提交时间：<fmt:formatDate value = "${activity.activityPtime}" pattern="yyyy-MM-dd HH:mm:ss"/></h4>
-           	<h4>举行时间：<fmt:formatDate value = "${activity.activityHtime}" pattern="yyyy-MM-dd HH:mm:ss"/></h4>
-           	<h4>活动主题：${ activity.activityTheme }</h4>
-           	<h4>活动内容：</h4>
-           	<h5>${ activity.activityContent }</h5>
-        </div>
-        <hr>
-        <div class="panel-heading">
-           	<h4>审核内容：</h4>
-           	<form action="${pageContext.request.contextPath}/adminHandle/updateActivity/${activity.activityId}" method="post">
-           		<textarea class="form-control" name="verifyContent" rows="3" ></textarea>
-           	<h4>是否通过审核：<input type="radio" name="verifyResult" value="是" checked="checked" />是&nbsp;&nbsp;&nbsp;<input type="radio" name="verifyResult" value="否" />否
-           	</h4>
-           		<div align="center">
-	       			<button type="submit" class="loginbtn">提交</button>
-	    		</div>
-           	</form>
-           	
+        	
+        	<h4>缴费时间：<fmt:formatDate value = "${pay.payTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h4>
+        	<h4>缴费金额：${ pay.payPrice }</h4>
+        	<h4>缴纳人：${ pay.owner.ownersName }</h4>
+        	<h4>电话：${ pay.owner.ownersPhone }</h4>
+        	<h4>房间号：${ pay.room.roomId }</h4>
+        	<h4>房间大小：${ pay.room.roomSize}</h4>
         </div>
     </div>
     

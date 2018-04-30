@@ -11,12 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pms.pojo.Activity;
 import com.pms.pojo.Chat;
 import com.pms.pojo.Complain;
+import com.pms.pojo.Pay;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
 import com.pms.service.ActivityService;
 import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
 import com.pms.service.NoticeService;
+import com.pms.service.PayService;
 import com.pms.service.SuggestService;
 import com.pms.service.UpkeepService;
 
@@ -41,6 +43,9 @@ public class AdminMainController {
 	
 	@Resource(name = "activityService")
 	ActivityService activityService;
+	
+	@Resource(name = "payService")
+	PayService payService;
 	
 	@RequestMapping(value = "main")
 	public String main(){
@@ -232,4 +237,21 @@ public class AdminMainController {
 		
 		return mView;
 	}
+	
+	/**
+	 * 缴费历史记录查询
+	 * @return payHistory.jsp
+	 */
+	@RequestMapping(value = "payHistory")
+	public ModelAndView payHistory(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/payHistory");
+		
+		List<Pay> payList = payService.getAllPayByRoom();
+		
+		mView.addObject("payList", payList);
+		
+		return mView;
+	}
+	
 }
