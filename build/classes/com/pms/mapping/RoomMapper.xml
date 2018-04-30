@@ -8,6 +8,48 @@
     <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
   </resultMap>
   
+  <resultMap id="OwnerResultMap" type="com.pms.pojo.Room" >
+    <id column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="room_size" property="roomSize" jdbcType="INTEGER" />
+    <result column="room_pay" property="roomPay" jdbcType="VARCHAR" />
+    <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
+    
+    <association property="owner" javaType="com.pms.pojo.Owner">
+    	<id column="owners_id" property="ownersId" jdbcType="INTEGER" />
+	    <result column="owners_email" property="ownersEmail" jdbcType="VARCHAR" />
+	    <result column="owners_password" property="ownersPassword" jdbcType="VARCHAR" />
+	    <result column="owners_name" property="ownersName" jdbcType="VARCHAR" />
+	    <result column="owners_sex" property="ownersSex" jdbcType="VARCHAR" />
+	    <result column="owners_phone" property="ownersPhone" jdbcType="VARCHAR" />
+	    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    </association>
+  </resultMap>
+  
+  <resultMap id="OwnerAndPayResultMap" type="com.pms.pojo.Room" >
+    <id column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="room_size" property="roomSize" jdbcType="INTEGER" />
+    <result column="room_pay" property="roomPay" jdbcType="VARCHAR" />
+    <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
+    
+    <association property="owner" javaType="com.pms.pojo.Owner">
+    	<id column="owners_id" property="ownersId" jdbcType="INTEGER" />
+	    <result column="owners_email" property="ownersEmail" jdbcType="VARCHAR" />
+	    <result column="owners_password" property="ownersPassword" jdbcType="VARCHAR" />
+	    <result column="owners_name" property="ownersName" jdbcType="VARCHAR" />
+	    <result column="owners_sex" property="ownersSex" jdbcType="VARCHAR" />
+	    <result column="owners_phone" property="ownersPhone" jdbcType="VARCHAR" />
+	    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    </association>
+    
+    <association property="pay" javaType="com.pms.pojo.Pay">
+    	<id column="pay_id" property="payId" jdbcType="INTEGER" />
+	    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+	    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+	    <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
+    </association>
+    
+  </resultMap>
+  
   <!-- 查询所有单元房信息 -->
   <select id = "selectAllRoom" resultMap = "BaseResultMap">
   	select * from room;
@@ -24,6 +66,30 @@
     set room_pay = 'YES'
     where room_id = #{roomId,jdbcType=INTEGER}
   </update>
+  
+  <select id = "selectByOwnerIsNotNull" resultMap = "BaseResultMap">
+  	select *from room where room_owner is not null;
+  </select>
+
+  <select id="selectAllRoomWithOwner" resultMap = "OwnerResultMap">
+  	select room.*, owners.* from room
+	LEFT JOIN owners on (owners.owners_id = room.room_owner);
+  </select>
+  
+  <select id="selectAllRoomWithOwnerAndPay" resultMap = "OwnerAndPayResultMap" parameterType="java.lang.Integer">
+  	select room.*, pay.*, owners.* FROM room, pay, owners where room.room_id = #{roomId,jdbcType=INTEGER} 
+  	and pay.pay_id = (select max(pay_id) from pay where owners_id = room.room_owner) 
+  	and owners.owners_id = room.room_owner;
+  </select>
+  
+  <select id="selectRoomAndOwnerById" resultMap = "OwnerResultMap">
+  	select room.*, owners.* from room, owners where room.room_id = #{roomId,jdbcType=INTEGER}
+  	AND owners_id = room_owner;
+  </select>
+  
+  <select id = "selectByRoomId" resultMap = "BaseResultMap" parameterType="java.lang.Integer">
+  	select *from room where room_id = #{roomId,jdbcType=INTEGER}
+  </select>
   
   
   <sql id="Base_Column_List" >

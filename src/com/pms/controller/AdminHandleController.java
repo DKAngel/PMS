@@ -19,6 +19,7 @@ import com.pms.pojo.Complain;
 import com.pms.pojo.Joins;
 import com.pms.pojo.Owner;
 import com.pms.pojo.Pay;
+import com.pms.pojo.Room;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
 import com.pms.pojo.Verify;
@@ -29,6 +30,7 @@ import com.pms.service.ComplainService;
 import com.pms.service.JoinsService;
 import com.pms.service.OwnerService;
 import com.pms.service.PayService;
+import com.pms.service.RoomService;
 import com.pms.service.SuggestService;
 import com.pms.service.UpkeepService;
 import com.pms.service.VerifyService;
@@ -68,6 +70,9 @@ public class AdminHandleController {
 	
 	@Resource(name = "payService")
 	PayService payService;
+	
+	@Resource(name = "roomService")
+	RoomService roomService;
 	
 	/**
 	 * 删除投诉记录
@@ -474,6 +479,53 @@ public class AdminHandleController {
 		
 		mView.setViewName("/admin/handlePay");  
 		
+		return mView;
+	}
+	
+	/**
+	 * 单元房详细缴费信息
+	 * @param roomId
+	 * @param request
+	 * @return handlePayOfRoom.jsp
+	 */
+	@RequestMapping("/handlePayOfRoom/{roomId}")
+	public ModelAndView handlePayOfRoom(@PathVariable String roomId, HttpServletRequest request){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/handlePayOfRoom");
+		
+		Room room = roomService.getAllRoomWithOwnerAndPay(Integer.valueOf(roomId));
+		mView.addObject("room", room);
+		try{
+			//有业主并且缴过费
+			if(room.getPay() != null){
+				Date payTime = room.getPay().getPayTime();
+				Date deadLine = new Date(payTime.getTime()+30*24*60*60*1000L);
+				Date nowTime = new GetNowTime().getNowTime();
+				if(deadLine.after(nowTime)){
+					request.setAttribute("payError", "正常缴纳物业费");
+					mView.addObject("deadLine", deadLine);
+				}else{
+					
+					int days = (int) ((nowTime.getTime() - deadLine.getTime())/(1000 * 60 * 60 * 24));
+					request.setAttribute("payError", "业主已拖欠物业费");
+					mView.addObject("days", days+"天");
+				}
+			}
+		}catch (Exception e){
+			Room room2 = roomService.getRoomAndOwnerById(Integer.valueOf(roomId));
+			try{
+				//有业主，但是没缴过费
+				if( room2.getOwner() != null){
+					request.setAttribute("payError", "业主未缴纳过物业费");
+					mView.addObject("room", room2);
+				}
+			}catch(Exception e1){
+				//无业主
+				Room room3 = roomService.getByRoomId(Integer.valueOf(roomId));
+				request.setAttribute("payError", "暂时未有业主入住");
+				mView.addObject("room", room3);
+			}
+		}
 		return mView;
 	}
 	

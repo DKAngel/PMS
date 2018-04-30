@@ -9,7 +9,27 @@ public class Room {
 
     private Integer roomOwner;
 
-    public Integer getRoomId() {
+    private Owner owner;
+    
+    private Pay pay;
+    
+	public Pay getPay() {
+		return pay;
+	}
+
+	public void setPay(Pay pay) {
+		this.pay = pay;
+	}
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
+
+	public Integer getRoomId() {
         return roomId;
     }
 

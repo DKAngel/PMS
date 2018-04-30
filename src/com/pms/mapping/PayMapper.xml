@@ -52,6 +52,12 @@
     select * from room where room_owner = #{roomOwner,jdbcType=INTEGER} 
   </select>
   
+  <select id="selectPayAndRoom" resultMap="RoomResultMap" >
+    select * from pay where owners_id = #{ownersId,jdbcType=INTEGER}
+    union
+    select * from room where room_owner = #{roomOwner,jdbcType=INTEGER} 
+  </select>
+  
   <insert id="insertByOwner" parameterType="com.pms.pojo.Pay" >
     insert into pay (pay_time, pay_price, owners_id)
     values (#{payTime,jdbcType=TIMESTAMP}, #{payPrice,jdbcType=DOUBLE}, 

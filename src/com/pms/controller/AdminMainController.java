@@ -12,6 +12,7 @@ import com.pms.pojo.Activity;
 import com.pms.pojo.Chat;
 import com.pms.pojo.Complain;
 import com.pms.pojo.Pay;
+import com.pms.pojo.Room;
 import com.pms.pojo.Suggest;
 import com.pms.pojo.Upkeep;
 import com.pms.service.ActivityService;
@@ -19,6 +20,7 @@ import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
 import com.pms.service.NoticeService;
 import com.pms.service.PayService;
+import com.pms.service.RoomService;
 import com.pms.service.SuggestService;
 import com.pms.service.UpkeepService;
 
@@ -46,6 +48,9 @@ public class AdminMainController {
 	
 	@Resource(name = "payService")
 	PayService payService;
+	
+	@Resource(name = "roomService")
+	RoomService roomService;
 	
 	@RequestMapping(value = "main")
 	public String main(){
@@ -254,9 +259,19 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	/**
+	 * 单元房缴费情况
+	 * @return payCurrentSituation.jsp
+	 */
 	@RequestMapping(value = "payCurrentSituation")
 	public ModelAndView payCurrentSituation(){
-		return null;
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/payCurrentSituation");
+		
+		List<Room> roomList = roomService.getAllRoomWithOwner();
+		mView.addObject("roomList", roomList);
+		
+		return mView;
 	}
 	
 }

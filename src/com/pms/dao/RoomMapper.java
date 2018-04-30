@@ -28,4 +28,13 @@ public interface RoomMapper {
     
     int updateByPay(Integer roomId);
     
+    List<Room> selectByOwnerIsNotNull();
+    
+    List<Room> selectAllRoomWithOwner();
+    
+    Room selectAllRoomWithOwnerAndPay(Integer roomId);
+    
+    Room selectRoomAndOwnerById(Integer roomId);
+    
+    Room selectByRoomId(Integer roomId);
 }

@@ -17,7 +17,7 @@ public class RoomServiceImpl implements RoomService{
 	private RoomMapper roomMapper;
 	
 	@Override
-	public List<Room> getRoom(){
+	public List<Room> getAllRoom(){
 		return roomMapper.selectAllRoom();
 	}
 	
@@ -33,4 +33,23 @@ public class RoomServiceImpl implements RoomService{
 		return roomMapper.updateByPay(roomId);
 	}
 	
+	public List<Room> getByOwnerIsNotNull(){
+		return roomMapper.selectByOwnerIsNotNull();
+	}
+	
+	public List<Room> getAllRoomWithOwner(){
+		return roomMapper.selectAllRoomWithOwner();
+	}
+	
+	public Room getAllRoomWithOwnerAndPay(Integer roomId){
+		return roomMapper.selectAllRoomWithOwnerAndPay(roomId);
+	}
+	
+	public Room getRoomAndOwnerById(Integer roomId){
+		return roomMapper.selectRoomAndOwnerById(roomId);
+	}
+	
+	public Room getByRoomId(Integer roomId){
+		return roomMapper.selectByRoomId(roomId);
+	}
 }
