@@ -254,4 +254,9 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	@RequestMapping(value = "payCurrentSituation")
+	public ModelAndView payCurrentSituation(){
+		return null;
+	}
+	
 }
