@@ -28,4 +28,6 @@ public interface ChatMapper {
     List<Chat> selectAllChatByTime(Date chatTime);
     
     int selectMaxId();
+    
+    int deleteByOwnerId(Integer ownerId);
 }

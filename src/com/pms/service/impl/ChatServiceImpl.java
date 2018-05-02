@@ -44,4 +44,8 @@ public class ChatServiceImpl implements ChatService{
 	public int getMaxId(){
 		return chatMapper.selectMaxId();
 	}
+	
+	public int deleteByOwnerId(Integer ownerId){
+		return chatMapper.deleteByOwnerId(ownerId);
+	}
 }

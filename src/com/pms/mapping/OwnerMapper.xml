@@ -41,6 +41,10 @@
     where 	          owners_email = #{ownersOldEmail,jdbcType=VARCHAR}
   </update>
   
+  <select id="selectAllOwner" resultMap="BaseResultMap" >
+    select * from owners;
+  </select>
+  
   
   <sql id="Base_Column_List" >
     owners_id, owners_email, owners_password, owners_name, owners_sex, owners_phone, 

@@ -24,4 +24,8 @@ public class VerifyServiceImpl implements VerifyService{
 	public int deleteByActivityId(Integer activityId){
 		return verifyMapper.deleteByActivityId(activityId);
 	}
+	
+	public int deleteByActivityOwner(Integer ownerId){
+		return verifyMapper.deleteByActivityOwner(ownerId);
+	}
 }

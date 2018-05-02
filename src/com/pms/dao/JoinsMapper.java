@@ -29,4 +29,6 @@ public interface JoinsMapper {
     Joins selectByActivityIdAndOwnerId(@Param("activityId")Integer activityId, @Param("ownersId")Integer ownersId);
 
     int deleteByActivityId(Integer activityId);
+    
+    int deleteByOwnerId(Integer ownerId);
 }

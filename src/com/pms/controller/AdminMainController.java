@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pms.pojo.Activity;
 import com.pms.pojo.Chat;
 import com.pms.pojo.Complain;
+import com.pms.pojo.Owner;
 import com.pms.pojo.Pay;
 import com.pms.pojo.Room;
 import com.pms.pojo.Suggest;
@@ -19,6 +20,7 @@ import com.pms.service.ActivityService;
 import com.pms.service.ChatService;
 import com.pms.service.ComplainService;
 import com.pms.service.NoticeService;
+import com.pms.service.OwnerService;
 import com.pms.service.PayService;
 import com.pms.service.RoomService;
 import com.pms.service.SuggestService;
@@ -51,6 +53,9 @@ public class AdminMainController {
 	
 	@Resource(name = "roomService")
 	RoomService roomService;
+	
+	@Resource(name = "ownerService")
+	OwnerService ownerService;
 	
 	@RequestMapping(value = "main")
 	public String main(){
@@ -270,6 +275,21 @@ public class AdminMainController {
 		
 		List<Room> roomList = roomService.getAllRoomWithOwner();
 		mView.addObject("roomList", roomList);
+		
+		return mView;
+	}
+	
+	/**
+	 * 业主管理(查、改、删)
+	 * @return manageOwner.jsp
+	 */
+	@RequestMapping(value = "manageOwner")
+	public ModelAndView manageOwner(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/manageOwner");
+		
+		List<Owner> ownerList = ownerService.getAllOwner();
+		mView.addObject("ownerList", ownerList);
 		
 		return mView;
 	}

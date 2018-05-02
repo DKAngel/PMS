@@ -32,4 +32,6 @@ public interface ActivityMapper {
     List<Activity> selectAllActivity();
     
     int updateStateById(Activity record);
+    
+    int deleteByOwnerId(Integer ownerId);
 }

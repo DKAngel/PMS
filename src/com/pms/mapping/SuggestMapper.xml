@@ -36,6 +36,11 @@
     where suggest_id = #{suggestId,jdbcType=INTEGER}
   </update>
   
+  <delete id="deleteByOwnerId" parameterType="java.lang.Integer" >
+    delete from suggest
+    where owners_id = #{ownerId,jdbcType=INTEGER}
+  </delete>
+  
   
   <sql id="Base_Column_List" >
     suggest_id, suggest_content, suggest_time, suggest_handle_time, suggest_handle_result, 

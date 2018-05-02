@@ -11,4 +11,5 @@ public interface ComplainService {
 	public int deleteByComplainId(Integer id);
 	public List<Complain> getAllComplainByOwner(Integer ownerId);
 	public int updateByAdmin(Complain record);
+	public int deleteByOwnerId(Integer ownerId);
 }

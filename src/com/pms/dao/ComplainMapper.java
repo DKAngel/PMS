@@ -28,4 +28,6 @@ public interface ComplainMapper {
     List<Complain> selectAllComplainByOwner(Integer ownerId);
     
     int updateByAdmin(Complain record);
+    
+    int deleteByOwnerId(Integer ownerId);
 }

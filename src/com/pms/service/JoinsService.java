@@ -12,4 +12,6 @@ public interface JoinsService {
     public Joins getByActivityIdAndOwnerId(Integer activityId, Integer ownersId);
     
     public int deleteByActivityId(Integer activityId);
+    
+    public int deleteByOwnerId(Integer ownerId);
 }

@@ -529,4 +529,77 @@ public class AdminHandleController {
 		return mView;
 	}
 	
+	/**
+	 * 删除业主
+	 * @param oId String类型的 业主ID
+	 * @return manageOwner Controller
+	 */
+	@RequestMapping("/deleteOwner/{oId}")
+	public String deleteOwner(@PathVariable String oId){
+		
+		int ownerId = Integer.valueOf(oId);
+		
+		int complain = complainService.deleteByOwnerId(ownerId);
+		if(complain > 0){
+			System.out.println("投诉表删除成功");
+		}
+		
+		int suggest = suggestService.deleteByOwnerId(ownerId);
+		if(suggest > 0){
+			System.out.println("建议表删除成功");
+		}
+		
+		int upkeep = upkeepService.deleteByOwnerId(ownerId);
+		if(upkeep > 0){
+			System.out.println("报修表删除成功");
+		}
+		
+		int chat = chatService.deleteByOwnerId(ownerId);
+		if(chat > 0){
+			System.out.println("聊天表删除成功");
+		}
+		
+		int join = joinsService.deleteByOwnerId(ownerId);
+		if(join > 0){
+			System.out.println("参与表删除成功");
+		}
+		
+		int verify = verifyService.deleteByActivityOwner(ownerId);
+		if(verify > 0){
+			System.out.println("审核表删除成功");
+		}
+		
+		int activity = activityService.deleteByOwnerId(ownerId);
+		if(activity > 0){
+			System.out.println("活动表删除成功");
+		}
+		
+		int pay = payService.deleteByOwnerId(ownerId);
+		if(pay > 0){
+			System.out.println("缴费表删除成功");
+		}
+		
+		int room = roomService.updateRoomOwnerByOwnerId(ownerId);
+		if(room > 0){
+			System.out.println("单元房房主修改成功");
+		}
+		
+		int owners = ownerService.deleteByPrimaryKey(ownerId);
+		if(owners > 0){
+			System.out.println("业主删除成功");
+			return "redirect:/adminMain/manageOwner";
+		}
+		
+		return null;
+	}
+	
+	@RequestMapping("/updateOwner/{ownerId}")
+	public ModelAndView updateOwner(@PathVariable String ownerId){
+		ModelAndView mView = new ModelAndView();
+		
+		mView.setViewName("/admin/updateOwner");
+		
+		return mView;
+	}
+	
 }

@@ -38,4 +38,8 @@ public class PayServiceImpl implements PayService {
 	public Pay getPayByPayId(Integer ownersId){
 		return payMapper.selectPayByPayId(ownersId);
 	}
+	
+	public int deleteByOwnerId(Integer ownerId){
+		return payMapper.deleteByOwnerId(ownerId);
+	}
 }

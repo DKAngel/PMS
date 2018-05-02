@@ -30,4 +30,8 @@ public class JoinsServiceImpl implements JoinsService{
     public int deleteByActivityId(Integer activityId){
     	return joinsMapper.deleteByActivityId(activityId);
     }
+    
+    public int deleteByOwnerId(Integer ownerId){
+    	return joinsMapper.deleteByOwnerId(ownerId);
+    }
 }

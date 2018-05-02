@@ -11,4 +11,5 @@ public interface PayService {
 	public List<Pay> getAllPay();
 	public List<Pay> getAllPayByRoom();
 	public Pay getPayByPayId(Integer ownersId);
+	public int deleteByOwnerId(Integer ownerId);
 }

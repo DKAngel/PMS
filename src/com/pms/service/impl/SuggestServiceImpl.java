@@ -38,4 +38,8 @@ public class SuggestServiceImpl implements SuggestService {
 	public int updateByAdmin(Suggest record){
 		return suggestMapper.updateByAdmin(record);
 	}
+	
+	public int deleteByOwnerId(Integer ownerId){
+		return suggestMapper.deleteByOwnerId(ownerId);
+	}
 }

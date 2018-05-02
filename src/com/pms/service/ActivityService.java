@@ -13,4 +13,5 @@ public interface ActivityService {
 	public List<Activity> getAllActivityBy0();
 	public List<Activity> getAllActivity();
 	public int updateStateById(Activity record);
+	public int deleteByOwnerId(Integer ownerId);
 }

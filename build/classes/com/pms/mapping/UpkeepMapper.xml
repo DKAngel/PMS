@@ -40,6 +40,11 @@
     where upkeep_id = #{upkeepId,jdbcType=INTEGER}
   </update>
   
+  <delete id="deleteByOwnerId" parameterType="java.lang.Integer" >
+    delete from upkeep
+    where owners_id = #{ownerId, jdbcType=INTEGER}
+  </delete>
+  
   
   <sql id="Base_Column_List" >
     upkeep_id, upkeep_type, upkeep_content, upkeep_time, upkeep_handle_time, upkeep_process, 

@@ -11,4 +11,5 @@ public interface SuggestService {
 	public int deleteBySuggestId(Integer id);
 	public List<Suggest> getAllSuggestByOwner(Integer ownerId);
 	public int updateByAdmin(Suggest record);
+	public int deleteByOwnerId(Integer ownerId);
 }

@@ -47,5 +47,9 @@ public class ActivityServiceImpl implements ActivityService {
 	public int updateStateById(Activity record){
 		return activityMapper.updateStateById(record);
 	}
+	
+	public int deleteByOwnerId(Integer ownerId){
+		return activityMapper.deleteByOwnerId(ownerId);
+	}
 }
 

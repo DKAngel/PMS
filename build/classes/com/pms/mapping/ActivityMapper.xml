@@ -47,6 +47,11 @@
     where activity_id = #{activityId,jdbcType=INTEGER}
   </update>
   
+  <delete id="deleteByOwnerId" parameterType="java.lang.Integer" >
+    delete from activity
+    where owners_id = #{ownersId,jdbcType=INTEGER}
+  </delete>
+  
   
   <sql id="Base_Column_List" >
     activity_id, activity_theme, activity_content, activity_ptime, activity_htime, activity_state, 

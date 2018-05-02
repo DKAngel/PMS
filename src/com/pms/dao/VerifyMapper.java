@@ -24,4 +24,7 @@ public interface VerifyMapper {
     int insertByAdmin(Verify record);
     
     int deleteByActivityId(Integer activityId);
+    
+    int deleteByActivityOwner(Integer ownerId);
+    
 }

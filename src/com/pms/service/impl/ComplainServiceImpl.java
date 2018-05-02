@@ -39,4 +39,8 @@ public class ComplainServiceImpl implements ComplainService{
 	public int updateByAdmin(Complain record){
 		return complainMapper.updateByAdmin(record);
 	}
+	
+	public int deleteByOwnerId(Integer ownerId){
+		return complainMapper.deleteByOwnerId(ownerId);
+	}
 }

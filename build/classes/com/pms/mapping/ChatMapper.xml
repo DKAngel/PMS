@@ -33,6 +33,11 @@
     select max(chat_id) from chat;
   </select>
   
+  <delete id="deleteByOwnerId" parameterType="java.lang.Integer" >
+    delete from chat
+    where owners_id = #{ownersId,jdbcType=INTEGER}
+  </delete>
+  
   
   <sql id="Base_Column_List" >
     chat_id, chat_content, chat_time, owners_id, owners_name, room_id

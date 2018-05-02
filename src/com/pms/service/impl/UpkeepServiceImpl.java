@@ -38,4 +38,8 @@ public class UpkeepServiceImpl implements UpkeepService{
 	public int updateByAdmin(Upkeep record){
 		return upkeepMapper.updateByAdmin(record);
 	}
+	
+	public int deleteByOwnerId(Integer ownerId){
+		return upkeepMapper.deleteByOwnerId(ownerId);
+	}
 }

@@ -91,6 +91,11 @@
 	and pay.owners_id = room.room_owner and room.room_id = owners.room_id;
   </select>
   
+  <delete id="deleteByOwnerId" parameterType="java.lang.Integer" >
+    delete from pay
+    where owners_id = #{ownersId,jdbcType=INTEGER}
+  </delete>
+  
   
   <sql id="Base_Column_List" >
     pay_id, pay_time, pay_price, owners_id

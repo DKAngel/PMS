@@ -14,4 +14,5 @@ public interface RoomService {
 	public Room getAllRoomWithOwnerAndPay(Integer roomId);
 	public Room getRoomAndOwnerById(Integer roomId);
 	public Room getByRoomId(Integer roomId);
+	public int updateRoomOwnerByOwnerId(Integer ownerId);
 }

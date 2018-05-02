@@ -91,6 +91,12 @@
   	select *from room where room_id = #{roomId,jdbcType=INTEGER}
   </select>
   
+  <update id="updateRoomOwnerByOwnerId" parameterType="java.lang.Integer" >
+    update room
+    set room_owner = null
+    where room_owner = #{roomOwner,jdbcType=INTEGER}
+  </update>
+  
   
   <sql id="Base_Column_List" >
     room_id, room_size, room_pay, room_owner

@@ -52,4 +52,8 @@ public class RoomServiceImpl implements RoomService{
 	public Room getByRoomId(Integer roomId){
 		return roomMapper.selectByRoomId(roomId);
 	}
+	
+	public int updateRoomOwnerByOwnerId(Integer ownerId){
+		return roomMapper.updateRoomOwnerByOwnerId(ownerId);
+	}
 }

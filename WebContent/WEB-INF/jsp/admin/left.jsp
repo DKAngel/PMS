@@ -92,12 +92,9 @@ $(function(){
     
     <dd>
     <div class="title">
-    <span><img src="/pms/static/images/leftico01.png" /></span>业主管理
+    <span><img src="/pms/static/images/leftico01.png" /></span>
+    <a href="${pageContext.request.contextPath}/adminMain/manageOwner"  target="rightFrame">业主管理</a>
     </div>
-    	<ul class="menuson">
-        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/activityVerify" target="rightFrame">活动审核</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/activity" target="rightFrame">活动查询</a><i></i></li>
-        </ul>
     </dd>
     
     <dd>
@@ -107,7 +104,7 @@ $(function(){
     <ul class="menuson">
         <li><cite></cite><a href="#">编辑内容</a><i></i></li>
         </ul>     
-    </dd> 
+    </dd>
     
     </dl>
 </body>

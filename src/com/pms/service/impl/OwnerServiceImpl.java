@@ -1,5 +1,7 @@
 package com.pms.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -35,5 +37,13 @@ public class OwnerServiceImpl implements OwnerService{
 	
 	public Owner getByOwnerId(Integer ownerId){
 		return ownerMapper.selectByPrimaryKey(ownerId);
+	}
+	
+	public List<Owner> getAllOwner(){
+		return ownerMapper.selectAllOwner();
+	}
+	
+	public int deleteByPrimaryKey(Integer ownersId){
+		return ownerMapper.deleteByPrimaryKey(ownersId);
 	}
 }

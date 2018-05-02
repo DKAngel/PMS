@@ -31,7 +31,11 @@
     delete from verify
     where activity_id = #{activityId,jdbcType=INTEGER}
   </delete>
-  
+
+  <delete id="deleteByActivityOwner" parameterType="java.lang.Integer" >
+    delete from verify where activity_id in
+ (select activity_id from activity where owners_id = #{ownersId,jdbcType=INTEGER} );
+  </delete>
   
   <sql id="Base_Column_List" >
     verify_id, verify_content, verify_result, verify_time, activity_id, admin_id

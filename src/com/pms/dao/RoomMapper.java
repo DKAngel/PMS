@@ -37,4 +37,6 @@ public interface RoomMapper {
     Room selectRoomAndOwnerById(Integer roomId);
     
     Room selectByRoomId(Integer roomId);
+    
+    int updateRoomOwnerByOwnerId(Integer ownerId);
 }

@@ -28,4 +28,6 @@ public interface UpkeepMapper {
     List<Upkeep> selectAllUpkeepByOwner(Integer ownerId);
     
     int updateByAdmin(Upkeep record);
+    
+    int deleteByOwnerId(Integer ownerId);
 }

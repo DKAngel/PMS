@@ -32,4 +32,6 @@ public interface PayMapper {
     List<Pay> selectAllPayByRoom();
     
     Pay selectPayByPayId(Integer ownersId);
+    
+    int deleteByOwnerId(Integer ownerId);
 }
