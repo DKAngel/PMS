@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +37,14 @@ import com.pms.service.UpkeepService;
 import com.pms.service.VerifyService;
 import com.pms.utils.CleanStyle;
 import com.pms.utils.GetNowTime;
+import com.pms.utils.SendMail;
 
 @Controller
 @RequestMapping(value = "/adminHandle")
 public class AdminHandleController {
+	
+	@Autowired
+	SendMail sendMail;
 	
 	@Resource(name = "complainService")
 	ComplainService complainService;
@@ -505,7 +510,6 @@ public class AdminHandleController {
 					request.setAttribute("payError", "正常缴纳物业费");
 					mView.addObject("deadLine", deadLine);
 				}else{
-					
 					int days = (int) ((nowTime.getTime() - deadLine.getTime())/(1000 * 60 * 60 * 24));
 					request.setAttribute("payError", "业主已拖欠物业费");
 					mView.addObject("days", days+"天");
@@ -632,6 +636,31 @@ public class AdminHandleController {
 		ownerService.updateInfoByOwnerId(newOwner);
 		
 		return "redirect:/adminMain/manageOwner";
+	}
+	
+	/**
+	 * 提醒业主缴费：即发送邮件
+	 * @param ownerId
+	 * @param session
+	 * @param request
+	 * @return handleOverRoom.jsp
+	 */
+	@RequestMapping("/handleOverRoom/{ownerId}")
+	public ModelAndView handleOverRoom(@PathVariable String ownerId, HttpSession session, HttpServletRequest request){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/overOwnerRemind");
+		mView.addObject("overRoomList", session.getAttribute("overRoomList"));
+		
+		Owner owner = ownerService.getByOwnerId(Integer.valueOf(ownerId));
+		
+		try {
+			sendMail.sendCode(owner.getOwnersEmail(), "请按时缴纳物业费，谢谢合作，祝您生活愉快！");
+		} catch (Exception e) {
+			request.setAttribute("sendError", "邮箱不存在");
+			return mView;
+		}
+		request.setAttribute("sendError", "已提醒业主缴费");
+		return mView;
 	}
 	
 }

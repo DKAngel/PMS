@@ -22,7 +22,7 @@ public class SendMail {
 		message.setFrom("740324579@qq.com");
 		message.setTo(toEmail);
 		message.setSubject("物业管理系统邮件服务");
-		message.setText("您的验证码是:" + code);
+		message.setText("消息内容是:" + code);
 		javaMailSender.send(message);
     }
 }

@@ -3,6 +3,7 @@ package com.pms.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -291,6 +292,15 @@ public class AdminMainController {
 		List<Owner> ownerList = ownerService.getAllOwner();
 		mView.addObject("ownerList", ownerList);
 		
+		return mView;
+	}
+	
+	@RequestMapping(value = "overOwnerRemind")
+	public ModelAndView overOwnerRemind(HttpSession session){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/overOwnerRemind");
+		
+		mView.addObject("overRoomList", session.getAttribute("overRoomList"));
 		return mView;
 	}
 	

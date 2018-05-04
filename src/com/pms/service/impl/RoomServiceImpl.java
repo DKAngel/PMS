@@ -56,4 +56,12 @@ public class RoomServiceImpl implements RoomService{
 	public int updateRoomOwnerByOwnerId(Integer ownerId){
 		return roomMapper.updateRoomOwnerByOwnerId(ownerId);
 	}
+	
+	public List<Room> getRoomAndPay(){
+		return roomMapper.selectRoomAndPay();
+	}
+	
+	public int updateRoomPayByOver(Room room){
+		return roomMapper.updateRoomPayByOver(room);
+	}
 }

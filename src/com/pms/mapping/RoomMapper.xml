@@ -30,7 +30,6 @@
     <result column="room_size" property="roomSize" jdbcType="INTEGER" />
     <result column="room_pay" property="roomPay" jdbcType="VARCHAR" />
     <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
-    
     <association property="owner" javaType="com.pms.pojo.Owner">
     	<id column="owners_id" property="ownersId" jdbcType="INTEGER" />
 	    <result column="owners_email" property="ownersEmail" jdbcType="VARCHAR" />
@@ -40,6 +39,19 @@
 	    <result column="owners_phone" property="ownersPhone" jdbcType="VARCHAR" />
 	    <result column="room_id" property="roomId" jdbcType="INTEGER" />
     </association>
+    <association property="pay" javaType="com.pms.pojo.Pay">
+    	<id column="pay_id" property="payId" jdbcType="INTEGER" />
+	    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+	    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+	    <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
+    </association>
+  </resultMap>
+  
+  <resultMap id="PayResultMap" type="com.pms.pojo.Room" >
+    <id column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="room_size" property="roomSize" jdbcType="INTEGER" />
+    <result column="room_pay" property="roomPay" jdbcType="VARCHAR" />
+    <result column="room_owner" property="roomOwner" jdbcType="INTEGER" />
     
     <association property="pay" javaType="com.pms.pojo.Pay">
     	<id column="pay_id" property="payId" jdbcType="INTEGER" />
@@ -47,8 +59,8 @@
 	    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
 	    <result column="owners_id" property="ownersId" jdbcType="INTEGER" />
     </association>
-    
   </resultMap>
+  
   
   <!-- 查询所有单元房信息 -->
   <select id = "selectAllRoom" resultMap = "BaseResultMap">
@@ -95,6 +107,18 @@
     update room
     set room_owner = null, room_pay = 'NO'
     where room_owner = #{roomOwner,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectRoomAndPay" resultMap = "PayResultMap">
+  	select room.*, pay.* from room
+	LEFT JOIN pay on pay.pay_id = (select max(pay_id) from pay where owners_id = room.room_owner)
+	where room.room_owner is not null
+  </select>
+  
+  <update id="updateRoomPayByOver" parameterType="com.pms.pojo.Room" >
+    update room
+    set room_pay = 'NO'
+    where room_id = #{roomId,jdbcType=INTEGER}
   </update>
   
   

@@ -15,4 +15,6 @@ public interface RoomService {
 	public Room getRoomAndOwnerById(Integer roomId);
 	public Room getByRoomId(Integer roomId);
 	public int updateRoomOwnerByOwnerId(Integer ownerId);
+	public List<Room> getRoomAndPay();
+	public int updateRoomPayByOver(Room room);
 }

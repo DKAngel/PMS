@@ -99,6 +99,13 @@ $(function(){
     
     <dd>
     <div class="title">
+    <span><img src="/pms/static/images/leftico01.png" /></span>
+    <a href="${pageContext.request.contextPath}/adminMain/overOwnerRemind"  target="rightFrame">未缴费业主：${ overRoomList.size() }</a>
+    </div>
+    </dd>
+    
+    <dd>
+    <div class="title">
     <span><img src="/pms/static/images/leftico02.png" /></span>统计分析
     </div>
     <ul class="menuson">

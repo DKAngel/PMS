@@ -39,4 +39,8 @@ public interface RoomMapper {
     Room selectByRoomId(Integer roomId);
     
     int updateRoomOwnerByOwnerId(Integer ownerId);
+    
+    List<Room> selectRoomAndPay();
+    
+    int updateRoomPayByOver(Room room);
 }
