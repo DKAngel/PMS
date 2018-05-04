@@ -93,7 +93,7 @@
   
   <update id="updateRoomOwnerByOwnerId" parameterType="java.lang.Integer" >
     update room
-    set room_owner = null
+    set room_owner = null, room_pay = 'NO'
     where room_owner = #{roomOwner,jdbcType=INTEGER}
   </update>
   

@@ -13,4 +13,5 @@ public interface OwnerService {
 	public Owner getByOwnerId(Integer id); 
 	public List<Owner> getAllOwner();
 	public int deleteByPrimaryKey(Integer ownersId);
+	public int updateInfoByOwnerId(Owner owner);
 }

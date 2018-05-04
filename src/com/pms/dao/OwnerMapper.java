@@ -39,4 +39,6 @@ public interface OwnerMapper {
 						     @Param("ownersOldEmail")String oldEmail);
     
     List<Owner> selectAllOwner();
+    
+    int updateInfoByOwnerId(Owner owner);
 }

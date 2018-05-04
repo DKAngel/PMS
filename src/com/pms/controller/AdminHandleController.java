@@ -593,13 +593,45 @@ public class AdminHandleController {
 		return null;
 	}
 	
+	/**
+	 * 修改业主信息
+	 * @param ownerId
+	 * @return updateOwner.jsp
+	 */
 	@RequestMapping("/updateOwner/{ownerId}")
 	public ModelAndView updateOwner(@PathVariable String ownerId){
 		ModelAndView mView = new ModelAndView();
-		
 		mView.setViewName("/admin/updateOwner");
 		
+		Owner owner = ownerService.getByOwnerId(Integer.valueOf(ownerId));
+		
+		mView.addObject("owner", owner);
+		
 		return mView;
+	}
+	
+	/**
+	 * 确认修改业主信息
+	 * @param ownerId
+	 * @param request
+	 * @return manageOwner Controller
+	 */
+	@RequestMapping("/submitUpdateOwner/{ownerId}")
+	public String submitUpdateOwner(@PathVariable String ownerId, HttpServletRequest request){
+		CleanStyle cleanStyle = new CleanStyle();
+		String name = cleanStyle.cleanStyle(request.getParameter("name"));
+		String sex = request.getParameter("sex");
+		String phone = request.getParameter("phone");
+		
+		Owner newOwner = new Owner();
+		newOwner.setOwnersId(Integer.valueOf(ownerId));
+		newOwner.setOwnersName(name);
+		newOwner.setOwnersSex(sex);
+		newOwner.setOwnersPhone(phone);
+		
+		ownerService.updateInfoByOwnerId(newOwner);
+		
+		return "redirect:/adminMain/manageOwner";
 	}
 	
 }

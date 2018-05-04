@@ -46,4 +46,8 @@ public class OwnerServiceImpl implements OwnerService{
 	public int deleteByPrimaryKey(Integer ownersId){
 		return ownerMapper.deleteByPrimaryKey(ownersId);
 	}
+	
+	public int updateInfoByOwnerId(Owner owner){
+		return ownerMapper.updateInfoByOwnerId(owner);
+	}
 }

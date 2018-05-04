@@ -45,6 +45,15 @@
     select * from owners;
   </select>
   
+  <update id="updateInfoByOwnerId" parameterType="com.pms.pojo.Owner" >
+    update owners
+    set
+      owners_name = #{ownersName,jdbcType=VARCHAR},
+      owners_sex = #{ownersSex,jdbcType=VARCHAR},
+      owners_phone = #{ownersPhone,jdbcType=VARCHAR}
+    where owners_id = #{ownersId,jdbcType=INTEGER}
+  </update>
+  
   
   <sql id="Base_Column_List" >
     owners_id, owners_email, owners_password, owners_name, owners_sex, owners_phone, 
