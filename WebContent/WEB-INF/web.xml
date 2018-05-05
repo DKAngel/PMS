@@ -28,6 +28,15 @@
     <url-pattern>/static/*</url-pattern>
   </servlet-mapping>
   
+  <servlet>  
+    <servlet-name>DisplayChart</servlet-name>  
+    <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>  
+  </servlet>  
+  <servlet-mapping>  
+    <servlet-name>DisplayChart</servlet-name>  
+    <url-pattern>/DisplayChart</url-pattern>  
+  </servlet-mapping>  
+  
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

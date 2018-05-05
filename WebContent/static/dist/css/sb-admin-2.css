@@ -173,6 +173,7 @@ body {
 .flot-chart {
   display: block;
   height: 400px;
+  width: 100%;
 }
 .flot-chart-content {
   width: 100%;

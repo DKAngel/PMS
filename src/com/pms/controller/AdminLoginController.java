@@ -91,7 +91,7 @@ public class AdminLoginController {
         	
         	if(overRoomList != null){
         		session.setAttribute("overRoomList", overRoomList);
-        		System.out.println("有逾期业主存在");
+        		//System.out.println("有逾期业主存在");
         	}
         	
         	//进入主页

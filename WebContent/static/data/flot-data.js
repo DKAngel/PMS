@@ -51,19 +51,15 @@ $(document).ready(function() {
 
 //Flot Pie Chart
 $(function() {
-
     var data = [{
-        label: "Series 0",
-        data: 1
+        label: "公共部分",
+        data: dataA
     }, {
-        label: "Series 1",
-        data: 3
+        label: "共用设施设备",
+        data: dataB
     }, {
-        label: "Series 2",
-        data: 9
-    }, {
-        label: "Series 3",
-        data: 20
+        label: "私有设备",
+        data: dataC
     }];
 
     var plotObj = $.plot($("#flot-pie-chart"), data, {

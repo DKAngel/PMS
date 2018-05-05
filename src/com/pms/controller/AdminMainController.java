@@ -309,12 +309,56 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	/**
+	 * 线上保修类型饼状图
+	 * @param session
+	 * @return analyOfUpkeep.jsp
+	 */
 	@RequestMapping(value = "analyOfUpkeep")
-	public ModelAndView analyOfUpkeep(){
+	public ModelAndView analyOfUpkeep(HttpSession session){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/admin/analyOfUpkeep");
+		
+		int dataA = 0;//公共部分数量
+		int dataB = 0;//共用设备设施数量
+		int dataC = 0;//私有设备数量
+		
+		List<Upkeep> upkeepList = upkeepService.getAllUpkeep();
+		
+		if(upkeepList != null){
+			for(Upkeep upkeep : upkeepList){
+				if(upkeep.getUpkeepType().contains("公共部分")){
+					dataA++;
+				}
+				if(upkeep.getUpkeepType().contains("共用设施设备")){
+					dataB++;
+				}
+				if(upkeep.getUpkeepType().contains("私有设备")){
+					dataC++;
+				}
+			}
+		}
+		
+		session.setAttribute("dataA", dataA );
+		session.setAttribute("dataB", dataB);
+		session.setAttribute("dataC", dataC);
 		
 		return mView;
 	}
 	
+	@RequestMapping(value = "analyOfPay")
+	public ModelAndView analyOfPay(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/analyOfPay");
+		
+		return mView;
+	}
+	
+	@RequestMapping(value = "analyOfComplain")
+	public ModelAndView analyOfComplain(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/analyOfComplain");
+		
+		return mView;
+	}
 }

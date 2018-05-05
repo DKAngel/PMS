@@ -109,9 +109,9 @@ $(function(){
     <span><img src="/pms/static/images/leftico02.png" /></span>统计分析
     </div>
     <ul class="menuson">
-        <li><cite></cite><a href="analyOfUpkeep">线上保修分析</a><i></i></li>
-        <li><cite></cite><a href="analyOfPay">线上缴费分析</a><i></i></li>
-        <li><cite></cite><a href="analyOfComplain">线上投诉分析</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/analyOfUpkeep" target="rightFrame">线上保修分析</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/analyOfPay" target="rightFrame">线上缴费分析</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/adminMain/analyOfComplain" target="rightFrame">线上投诉分析</a><i></i></li>
     </ul>
     </dd>
 
