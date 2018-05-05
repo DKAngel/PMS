@@ -295,12 +295,25 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	/**
+	 * 逾期用户管理
+	 * @param session
+	 * @return overOwnerRemind.jsp
+	 */
 	@RequestMapping(value = "overOwnerRemind")
 	public ModelAndView overOwnerRemind(HttpSession session){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/admin/overOwnerRemind");
 		
 		mView.addObject("overRoomList", session.getAttribute("overRoomList"));
+		return mView;
+	}
+	
+	@RequestMapping(value = "analyOfUpkeep")
+	public ModelAndView analyOfUpkeep(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("/admin/analyOfUpkeep");
+		
 		return mView;
 	}
 	

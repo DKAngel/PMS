@@ -109,10 +109,12 @@ $(function(){
     <span><img src="/pms/static/images/leftico02.png" /></span>统计分析
     </div>
     <ul class="menuson">
-        <li><cite></cite><a href="#">编辑内容</a><i></i></li>
-        </ul>     
+        <li><cite></cite><a href="analyOfUpkeep">线上保修分析</a><i></i></li>
+        <li><cite></cite><a href="analyOfPay">线上缴费分析</a><i></i></li>
+        <li><cite></cite><a href="analyOfComplain">线上投诉分析</a><i></i></li>
+    </ul>
     </dd>
-    
+
     </dl>
 </body>
 </html>
