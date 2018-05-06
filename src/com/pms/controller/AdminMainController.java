@@ -67,10 +67,12 @@ public class AdminMainController {
 	public String top(){
 		return "/admin/top";
 	}
+	
 	@RequestMapping(value = "left")
 	public String left(){
 		return "/admin/left";
 	}
+	
 	@RequestMapping(value = "index")
 	public String index(){
 		return "/admin/index";
@@ -329,9 +331,11 @@ public class AdminMainController {
 			for(Upkeep upkeep : upkeepList){
 				if(upkeep.getUpkeepType().contains("公共部分")){
 					dataA++;
+					continue;
 				}
 				if(upkeep.getUpkeepType().contains("共用设施设备")){
 					dataB++;
+					continue;
 				}
 				if(upkeep.getUpkeepType().contains("私有设备")){
 					dataC++;
@@ -346,18 +350,68 @@ public class AdminMainController {
 		return mView;
 	}
 	
+	/**
+	 * 线上缴费分析
+	 * @return analyOfPay.jsp
+	 */
 	@RequestMapping(value = "analyOfPay")
 	public ModelAndView analyOfPay(){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/admin/analyOfPay");
 		
+		
+		
 		return mView;
 	}
 	
+	/**
+	 * 线上投诉分析
+	 * @return analyOfComplain.jsp
+	 */
 	@RequestMapping(value = "analyOfComplain")
-	public ModelAndView analyOfComplain(){
+	public ModelAndView analyOfComplain(HttpSession session){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/admin/analyOfComplain");
+		
+		int dataService = 0;//服务态度
+		int dataEquipment = 0;//设备设施
+		int dataCharge = 0;//收费标准
+		int dataWork = 0;//办事效率
+		int dataOther = 0;//其他
+		
+		List<Complain> complainList = complainService.getAllComplain();
+		
+		if(complainList != null){
+			for(Complain complain : complainList){
+				String type = complain.getComplainType();
+				//System.out.println(type);
+				if(type.equals("服务态度")){
+					dataService++;
+					continue;
+				}
+				if(type.equals("设备设施")){
+					dataEquipment++;
+					continue;
+				}
+				if(type.equals("收费标准")){
+					dataCharge++;
+					continue;
+				}
+				if(type.equals("办事效率")){
+					dataWork++;
+					continue;
+				}
+				if(type.equals("其他")){
+					dataOther++;
+				}
+			}
+		}
+		
+		session.setAttribute("dataService", dataService );
+		session.setAttribute("dataEquipment", dataEquipment);
+		session.setAttribute("dataCharge", dataCharge);
+		session.setAttribute("dataWork", dataWork);
+		session.setAttribute("dataOther", dataOther);
 		
 		return mView;
 	}
