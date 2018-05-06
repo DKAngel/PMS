@@ -3,6 +3,7 @@ package com.pms.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -355,12 +356,43 @@ public class AdminMainController {
 	 * @return analyOfPay.jsp
 	 */
 	@RequestMapping(value = "analyOfPay")
-	public ModelAndView analyOfPay(){
+	public ModelAndView analyOfPay(HttpServletRequest request, HttpSession session){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/admin/analyOfPay");
 		
+		int data50 = 0;//0 - 50
+		int data100 = 0;//50 - 100
+		int data150= 0;//100 - 150
+		int data200 = 0;// > 150 
 		
+		List<Pay> payList = payService.getAllPay();
 		
+		if(payList != null){
+			for(Pay pay : payList){
+				Double price = pay.getPayPrice();
+				if(price < 50){
+					data50++;
+					continue;
+				}
+				if(price >= 50 && price < 100){
+					data100++;
+					continue;
+				}
+				if(price >= 100 && price < 150){
+					data150++;
+					continue;
+				}
+				if(price >= 150){
+					data200++;
+				}
+			}
+		}
+		
+		session.setAttribute("data50", data50 );
+		session.setAttribute("data100", data100);
+		session.setAttribute("data150", data150);
+		session.setAttribute("data200", data200);
+        
 		return mView;
 	}
 	
