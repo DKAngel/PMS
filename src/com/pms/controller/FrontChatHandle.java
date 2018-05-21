@@ -97,7 +97,11 @@ public class FrontChatHandle {
 		}
 	}
 	
-	
+	/**
+	 * 将聊天记录转为json格式
+	 * @param response
+	 * @param responseObject
+	 */
 	@RequestMapping("/ajaxChat")
 	public void ajaxChat(HttpServletResponse response, Object responseObject) {
 		List<Chat> chats = chatService.getAllChat();

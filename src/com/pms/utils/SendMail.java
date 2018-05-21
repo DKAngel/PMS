@@ -13,9 +13,8 @@ public class SendMail {
 
     /**
      * @Description: 执行发送邮件
-     * @param to            收件人邮箱
-     * @param subject        邮件主题
-     * @param content        邮件内容
+     * @param toEmail     收件人邮箱
+     * @param code        邮件内容
      */
     public void sendCode(String toEmail, String code) throws Exception {
     	SimpleMailMessage message = new SimpleMailMessage();

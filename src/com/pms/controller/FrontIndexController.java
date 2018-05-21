@@ -399,6 +399,11 @@ public class FrontIndexController {
 		return mView;
 	}
 	
+	/**
+	 * 活动记录
+	 * @param session
+	 * @return recordOfActivity.jsp
+	 */
 	@RequestMapping("/recordOfActivity")
 	public ModelAndView recordOfActivity(HttpSession session){
 		ModelAndView mView = new ModelAndView();
