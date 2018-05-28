@@ -25,15 +25,14 @@
 		setInterval("autofresh()",2000);
 		function createXMLHttpRequest(){
 			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp=new XMLHttpRequest();
-			
+				xmlhttp = new XMLHttpRequest();
 			}else{// code for IE6, IE5
-				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 			}
 		}
 	    function autofresh(){
 	        createXMLHttpRequest();
-	        xmlhttp.open("GET","${pageContext.request.contextPath}/frontChatHandle/ajaxChat",true);
+	        xmlhttp.open("GET","${pageContext.request.contextPath}/frontChatHandle/ajaxChat", true);
 	        xmlhttp.onreadystatechange = doAjax;
 	        xmlhttp.send();
 	    }
