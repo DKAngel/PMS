@@ -52,8 +52,14 @@ public class AdminNoticeController {
 		GetNowTime getTime = new GetNowTime();
 		Date noticeTime = getTime.getNowTime();
 		
-		int adminId =  ((Admin)session.getAttribute("user")).getAdminId();
-		String adminName = ((Admin)session.getAttribute("user")).getAdminName();
+		Admin admin = (Admin)session.getAttribute("user");
+		
+		if(admin == null){
+			return "redirect:/adminLogin/index";
+		}
+		
+		int adminId =  admin.getAdminId();
+		String adminName = admin.getAdminName();
 		
 		Notice notice = new Notice();
 		notice.setNoticeTitle(noticeTitle);

@@ -39,6 +39,20 @@
     <url-pattern>/DisplayChart</url-pattern>  
   </servlet-mapping>  
   
+  <welcome-file-list>
+  	<welcome-file>/defaut/login.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <error-page>
+	<error-code>404</error-code>
+	<location>/defaut/404.jsp</location>
+  </error-page>
+  
+  <error-page>
+    <error-code>500</error-code>
+    <location>/defaut/500.jsp</location>
+  </error-page>
+  
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

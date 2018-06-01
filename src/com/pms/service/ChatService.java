@@ -14,4 +14,5 @@ public interface ChatService {
 	public List<Chat> getAllChatByTime(Date chatTime);
 	public int getMaxId();
 	public int deleteByOwnerId(Integer ownerId);
+	public List<Chat> getChat100();
 }

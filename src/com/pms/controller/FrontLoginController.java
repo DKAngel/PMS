@@ -48,10 +48,12 @@ public class FrontLoginController {
 	
 	@RequestMapping("/loginOut")
 	public String loginOut(HttpSession session){
-		session.setAttribute("owner", null);
-		if(NumOfOwner.numOfOwner > 0){
+		if( NumOfOwner.numOfOwner > 0 && session.getAttribute("owner") != null){
 			NumOfOwner.numOfOwner--;
+			session.setAttribute("owner", null);
+			System.out.print("注销成功，");
 		}
+		System.out.println("当前在线人数：" + NumOfOwner.numOfOwner);
 		return "/front/login";
 	}
 	
@@ -119,7 +121,7 @@ public class FrontLoginController {
         	}else{
         		session.setAttribute("owner", owner);
             	NumOfOwner.numOfOwner++;
-            	System.out.println("登录成功，当前在线用户量："+NumOfOwner.numOfOwner);
+            	System.out.println("登录成功，当前在线人数：" + NumOfOwner.numOfOwner);
             	return mv;
         	}
         }else{

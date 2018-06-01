@@ -38,7 +38,11 @@
     where owners_id = #{ownersId,jdbcType=INTEGER}
   </delete>
   
-  
+  <select id="selectChat100" resultMap="BaseResultMap" >
+    select * from chat ORDER BY chat_id desc limit 100;
+  </select>
+
+
   <sql id="Base_Column_List" >
     chat_id, chat_content, chat_time, owners_id, owners_name, room_id
   </sql>

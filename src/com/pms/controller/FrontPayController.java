@@ -39,6 +39,11 @@ public class FrontPayController {
 		ModelAndView mView = new ModelAndView();
 
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		int ownerId = owner.getOwnersId();
 		int roomId = owner.getRoomId();
 		

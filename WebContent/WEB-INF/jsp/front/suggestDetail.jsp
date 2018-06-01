@@ -255,12 +255,9 @@
             </div>
             <div >
                 <div class="panel ">
-                    <div class="panel-heading">
-                       <h3>这是您第：${ suggest.suggestId }条建议</h3>
-                       <h5>建议时间：<fmt:formatDate value = "${suggest.suggestTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h5>
-                    </div>
                     
                     <div class="panel-body">
+                    	<h4>建议时间：<fmt:formatDate value = "${suggest.suggestTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h4>
                         <h4>建议内容：</h4>
                         <p>${ suggest.suggestContent }</p>
                     </div>

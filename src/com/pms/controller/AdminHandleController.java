@@ -135,6 +135,11 @@ public class AdminHandleController {
 	@RequestMapping("/updateComplain/{complainId}")
 	public String updateComplain(@PathVariable String complainId, HttpSession session, HttpServletRequest request){
 		Admin admin = (Admin) session.getAttribute("user");
+		
+		if(admin == null){
+			return "redirect:/adminLogin/index";
+		}
+		
 		int adminId = admin.getAdminId();
 		
 		GetNowTime getNowTime = new GetNowTime();
@@ -212,6 +217,11 @@ public class AdminHandleController {
 	@RequestMapping("/updateSuggest/{suggestId}")
 	public String updateSuggest(@PathVariable String suggestId, HttpSession session, HttpServletRequest request){
 		Admin admin = (Admin) session.getAttribute("user");
+		
+		if(admin == null){
+			return "redirect:/adminLogin/index";
+		}
+		
 		int adminId = admin.getAdminId();
 		
 		GetNowTime getNowTime = new GetNowTime();
@@ -291,6 +301,11 @@ public class AdminHandleController {
 	@RequestMapping("/updateUpkeep/{upkeepId}")
 	public String updateUpkeep(@PathVariable String upkeepId, HttpSession session, HttpServletRequest request){
 		Admin admin = (Admin) session.getAttribute("user");
+		
+		if(admin == null){
+			return "redirect:/adminLogin/index";
+		}
+		
 		int adminId = admin.getAdminId();
 		
 		GetNowTime getNowTime = new GetNowTime();
@@ -382,6 +397,11 @@ public class AdminHandleController {
 	@RequestMapping("/updateActivity/{activityId}")
 	public String updateActivity(@PathVariable String activityId, HttpSession session, HttpServletRequest request){
 		Admin admin = (Admin) session.getAttribute("user");
+		
+		if(admin == null){
+			return "redirect:/adminLogin/index";
+		}
+		
 		int adminId = admin.getAdminId();
 		
 		GetNowTime getNowTime = new GetNowTime();

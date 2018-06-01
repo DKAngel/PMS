@@ -30,4 +30,6 @@ public interface ChatMapper {
     int selectMaxId();
     
     int deleteByOwnerId(Integer ownerId);
+    
+    List<Chat> selectChat100();
 }

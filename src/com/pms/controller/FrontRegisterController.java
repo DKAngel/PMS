@@ -108,8 +108,20 @@ public class FrontRegisterController {
 	public ModelAndView setOwner (HttpServletRequest request, HttpSession session){
 		String registerEmail = request.getParameter("email");
 		String registerPassword = request.getParameter("password");
-		int registerRoomId = Integer.valueOf(request.getParameter("roomId"));
 		String inputCode = request.getParameter("code");
+		
+		int registerRoomId = 0;
+		try {
+			registerRoomId = Integer.valueOf(request.getParameter("roomId"));
+		} catch (Exception e) {
+			ModelAndView mView = new ModelAndView();
+			mView.addObject("registerEmail", registerEmail);
+			mView.addObject("registerPassword", registerPassword);
+			mView.addObject("registerRoomId", request.getParameter("roomId"));
+			mView.setViewName("/front/register");
+			request.setAttribute("loginError", "单元房格式不对");
+			return mView;
+		}
 		
 		Owner existOwner = frontRegisterService.getByEmail(registerEmail);
 		

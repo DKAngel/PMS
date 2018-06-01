@@ -1,5 +1,6 @@
 package com.pms.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -110,8 +111,11 @@ public class FrontIndexController {
 		CleanStyle cleanStyle = new CleanStyle();
 		String content = cleanStyle.cleanStyle(str);
 		
-		String type = request.getParameter("select");
+		String type = cleanStyle.cleanStyle(request.getParameter("select"));
 		
+		if(!type.equals("服务态度") && !type.equals("设备设施") && !type.equals("收费标准") && !type.equals("办事效率") && !type.equals("其他")){
+			return "/front/complain";
+		}
 		if(content.equals("")){
 			return "/front/complain";
 		}
@@ -120,6 +124,10 @@ public class FrontIndexController {
 		Date time = getNowTime.getNowTime();
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			return "redirect:/frontLogin/login";
+		}
+		
 		int ownerId = owner.getOwnersId();
 		Complain complain = new Complain();
 		complain.setComplainType(type);
@@ -166,6 +174,10 @@ public class FrontIndexController {
 		Date time = getNowTime.getNowTime();
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			return "redirect:/frontLogin/login";
+		}
+		
 		int ownerId = owner.getOwnersId();
 
 		Suggest suggest = new Suggest();
@@ -198,20 +210,24 @@ public class FrontIndexController {
 	 */
 	@RequestMapping(value = "/upkeepHandle", method = RequestMethod.POST)
 	public String upkeepHandle(HttpServletRequest request, HttpSession session){
-		String str = request.getParameter("textarea");
 		CleanStyle cleanStyle = new CleanStyle();
+		String str = request.getParameter("textarea");
 		String content = cleanStyle.cleanStyle(str);
 
 		if(content.equals("")){
 			return "/front/upkeep";
 		}
 
-		String type = request.getParameter("select1")+request.getParameter("select2");
+		String type = cleanStyle.cleanStyle(request.getParameter("select1")) + cleanStyle.cleanStyle(request.getParameter("select2"));
 
 		GetNowTime getNowTime = new GetNowTime();
 		Date time = getNowTime.getNowTime();
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			return "redirect:/frontLogin/login";
+		}
+		
 		int ownerId = owner.getOwnersId();
 		
 		Upkeep upkeep = new Upkeep();
@@ -239,7 +255,13 @@ public class FrontIndexController {
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/front/chat");
 		
-		List<Chat> chats = chatService.getAllChat();
+		//获取最新的100条消息
+		List<Chat> chatsDaoXu = chatService.getChat100();
+		List<Chat> chats = new ArrayList<>();
+		int count = chatsDaoXu.size();
+		for(int i=0; i<chatsDaoXu.size(); i++){
+			chats.add(chatsDaoXu.get(--count));
+		}
 		
 		mView.addObject("chatList", chats);
 		mView.addObject("numOfOwner", NumOfOwner.numOfOwner);
@@ -273,6 +295,11 @@ public class FrontIndexController {
 		mView.setViewName("/front/pay");
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		int roomId = owner.getRoomId();
 		mView.addObject("roomId", roomId);
 		
@@ -303,8 +330,14 @@ public class FrontIndexController {
 	 */
 	@RequestMapping("/recordOfComplain")
 	public ModelAndView recordOfComplain(HttpSession session){
-		Owner owner = (Owner) session.getAttribute("owner");
 		ModelAndView mView = new ModelAndView();
+		
+		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		mView.setViewName("/front/recordOfComplain");
 		List<Complain> complains = complainService.getAllComplainByOwner(owner.getOwnersId());
 		
@@ -332,8 +365,14 @@ public class FrontIndexController {
 	 */
 	@RequestMapping("/recordOfSuggest")
 	public ModelAndView recordOfSuggest(HttpSession session){
-		Owner owner = (Owner) session.getAttribute("owner");
 		ModelAndView mView = new ModelAndView();
+		
+		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		mView.setViewName("/front/recordOfSuggest");
 		List<Suggest> suggests = suggestService.getAllSuggestByOwner(owner.getOwnersId());
 		
@@ -364,7 +403,13 @@ public class FrontIndexController {
 	public ModelAndView recordOfPay(HttpSession session){
 		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/front/recordOfPay");
+		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		List<Pay> payList = payService.getAllByOwnerId(owner.getOwnersId());
 		mView.addObject("payList", payList);
 		return mView;
@@ -376,8 +421,14 @@ public class FrontIndexController {
 	 */
 	@RequestMapping("/recordOfUpkeep")
 	public ModelAndView recordOfUpkeep(HttpSession session){
-		Owner owner = (Owner) session.getAttribute("owner");
 		ModelAndView mView = new ModelAndView();
+		
+		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		mView.setViewName("/front/recordOfUpkeep");
 		List<Upkeep> upkeeps = upkeepService.getAllUpkeepByOwner(owner.getOwnersId());
 		
@@ -410,6 +461,10 @@ public class FrontIndexController {
 		mView.setViewName("/front/recordOfActivity");
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
 		
 		List<Activity> activityList = activityService.getAllActivityByOwnerId(owner.getOwnersId());
 		
@@ -425,10 +480,14 @@ public class FrontIndexController {
 	 */
 	@RequestMapping("/recordOfChat")
 	public ModelAndView recordOfChat(HttpSession session){
+		ModelAndView mView = new ModelAndView();
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
 		
-		ModelAndView mView = new ModelAndView();
 		mView.setViewName("/front/recordOfChat");
 		List<Chat> chats = chatService.getAllChatByOwnerId(owner.getOwnersId());
 		

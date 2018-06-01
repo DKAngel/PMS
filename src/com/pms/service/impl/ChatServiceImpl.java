@@ -48,4 +48,8 @@ public class ChatServiceImpl implements ChatService{
 	public int deleteByOwnerId(Integer ownerId){
 		return chatMapper.deleteByOwnerId(ownerId);
 	}
+	
+	public List<Chat> getChat100(){
+		return chatMapper.selectChat100();
+	}
 }

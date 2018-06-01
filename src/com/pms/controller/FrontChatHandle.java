@@ -2,6 +2,7 @@ package com.pms.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,10 +41,15 @@ public class FrontChatHandle {
 	@RequestMapping(value = "/chatHandle", method = RequestMethod.POST)
 	public String chatHandle(HttpServletRequest request, HttpSession session){
 		String str = request.getParameter("message");
+		//System.out.println(str);
 		CleanStyle cleanStyle = new CleanStyle();
 		String message = cleanStyle.cleanStyle(str);
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			return "redirect:/frontLogin/login";
+		}
+		
 		int ownerId = owner.getOwnersId();
 		String ownerName = owner.getOwnersName();
 		int roomId = owner.getRoomId();
@@ -104,7 +110,12 @@ public class FrontChatHandle {
 	 */
 	@RequestMapping("/ajaxChat")
 	public void ajaxChat(HttpServletResponse response, Object responseObject) {
-		List<Chat> chats = chatService.getAllChat();
+		List<Chat> chatsDaoXu = chatService.getChat100();
+		List<Chat> chats = new ArrayList<>();
+		int count = chatsDaoXu.size();
+		for(int i=0; i<chatsDaoXu.size(); i++){
+			chats.add(chatsDaoXu.get(--count));
+		}
 		//将实体对象转换为JSONObject
 		JSONArray jsonArray = JSONArray.fromObject(chats);
 	    response.setCharacterEncoding("UTF-8");

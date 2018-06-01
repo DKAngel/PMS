@@ -34,10 +34,17 @@ public class FrontSetAccountController {
 	
 	@RequestMapping("/index")
 	public ModelAndView index(HttpSession session){
+		ModelAndView mView = new ModelAndView();
+		
 		Owner oldOwner = (Owner)session.getAttribute("owner");
+		if(oldOwner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		String newEmail = oldOwner.getOwnersEmail();
 		
-		ModelAndView mView = new ModelAndView();
+		
 		mView.addObject("newEmail", newEmail);
 		mView.setViewName("/front/setAccount");
 		return mView;

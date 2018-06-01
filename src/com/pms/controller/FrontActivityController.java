@@ -89,6 +89,11 @@ public class FrontActivityController {
 		}
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			mView.setViewName("/front/login");
+			return mView;
+		}
+		
 		int ownerId = owner.getOwnersId();
 		String ownerName = owner.getOwnersName();
 		
@@ -137,6 +142,10 @@ public class FrontActivityController {
 	public String activityJoin(@PathVariable String activityId, HttpSession session) {
 		
 		Owner owner = (Owner) session.getAttribute("owner");
+		if(owner == null){
+			return "redirect:/frontLogin/login";
+		}
+		
 		int ownerId = owner.getOwnersId();
 		
 		Joins joins = joinsService.getByActivityIdAndOwnerId(Integer.valueOf(activityId), ownerId);

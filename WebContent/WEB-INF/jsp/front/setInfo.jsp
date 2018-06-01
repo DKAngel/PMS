@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -15,6 +16,15 @@
     <link href="/pms/static/dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="/pms/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
+
+<script>
+	setTimeout(function(){
+		var timeOut = '${setInfoError}'
+		if(timeOut != ''){
+			alert(timeOut);
+		}
+	}, 50)
+</script>
 
 <script>  
 	function checkPhone(s){  
@@ -46,10 +56,20 @@
                    
                    <!-- 性别  -->
                    <div class="form-group">
-                   	   <select class="form-control" name="sex">
-						   <option value="男">男</option>
-						   <option value="女">女</option>
-					   </select>
+                   <c:choose>
+                   	   <c:when test="${requestScope.ownerSex == '男'}">
+	                   	   <select class="form-control" name="sex">
+							   <option value="男" selected = "selected">男</option>
+							   <option value="女">女</option>
+						   </select>
+					   </c:when>
+					   <c:otherwise>
+					   	   <select class="form-control" name="sex">
+							   <option value="男">男</option>
+							   <option value="女" selected = "selected">女</option>
+						   </select>
+					   </c:otherwise>
+				   </c:choose>
                    </div>
                    
                    <div class="form-group">
