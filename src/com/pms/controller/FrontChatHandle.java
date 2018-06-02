@@ -110,12 +110,15 @@ public class FrontChatHandle {
 	 */
 	@RequestMapping("/ajaxChat")
 	public void ajaxChat(HttpServletResponse response, Object responseObject) {
+		
+		//获取最新的100条消息
 		List<Chat> chatsDaoXu = chatService.getChat100();
 		List<Chat> chats = new ArrayList<>();
 		int count = chatsDaoXu.size();
 		for(int i=0; i<chatsDaoXu.size(); i++){
 			chats.add(chatsDaoXu.get(--count));
 		}
+		
 		//将实体对象转换为JSONObject
 		JSONArray jsonArray = JSONArray.fromObject(chats);
 	    response.setCharacterEncoding("UTF-8");

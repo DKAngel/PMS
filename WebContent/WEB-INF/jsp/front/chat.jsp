@@ -32,7 +32,8 @@
 		}
 	    function autofresh(){
 	        createXMLHttpRequest();
-	        xmlhttp.open("GET","${pageContext.request.contextPath}/frontChatHandle/ajaxChat", true);
+	        var url = "${pageContext.request.contextPath}/frontChatHandle/ajaxChat?ran="+Math.random();
+	        xmlhttp.open("GET",url, true);
 	        xmlhttp.onreadystatechange = doAjax;
 	        xmlhttp.send();
 	    }
